@@ -26,5 +26,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass.set("com.github.mrpaulblack.tron.App")
+    mainClass.set("com.github.mrpaulblack.tron.Server")
 }

@@ -8,4 +8,4 @@
  */
 
 rootProject.name = "tron"
-include("app")
+include("server")
