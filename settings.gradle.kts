@@ -9,3 +9,4 @@
 
 rootProject.name = "tron"
 include("server")
+include("client")
