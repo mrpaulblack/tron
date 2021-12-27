@@ -5,7 +5,7 @@ package com.github.mrpaulblack.tron;
 
 public class Server {
     public String getGreeting() {
-        return "Hello World!";
+        return "Hello World from UPD Test Server!";
     }
 
     public static void main(String[] args) {
