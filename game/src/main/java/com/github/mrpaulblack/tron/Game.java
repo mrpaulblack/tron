@@ -9,6 +9,6 @@ public class Game {
     }
 
     public static void main(String[] args) {
-        System.out.println(new Server().getGreeting());
+        System.out.println(new Game().getGreeting());
     }
 }
