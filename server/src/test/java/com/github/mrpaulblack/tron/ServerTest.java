@@ -7,8 +7,4 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ServerTest {
-    @Test public void serverHasAGreeting() {
-        Server classUnderTest = new Server();
-        assertNotNull("server should have a greeting", classUnderTest.getGreeting());
-    }
 }
