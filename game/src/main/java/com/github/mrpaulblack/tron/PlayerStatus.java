@@ -1,3 +1,5 @@
+package com.github.mrpaulblack.tron;
+
 /**
 * <h1>PlayerStatusEnums/h1>
 * <p>ENUM to determain the player stauts within a running game.</p>
@@ -6,7 +8,7 @@
 * @version 1.0
 * @since   2021-12-29
 */
-public enum PlayerStatusEnums {
+public enum PlayerStatus {
 
     SPAWNING,
 	ONGRID,

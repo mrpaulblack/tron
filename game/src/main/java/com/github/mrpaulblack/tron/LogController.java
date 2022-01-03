@@ -1,8 +1,10 @@
+package com.github.mrpaulblack.tron;
+
 import java.time.LocalDateTime;
 
 public abstract class LogController {
     private static StackTraceElement element;
-	private static LogEnums globalLogLvl = LogEnums.INFO;
+	private static Log globalLogLvl = Log.INFO;
 
 	/**
 	 *	<h1><i>setGlobalLogLvl</i></h1>
@@ -10,7 +12,7 @@ public abstract class LogController {
 	 * based on the log level provided.</p>
 	 * @param logLvl - Log ENUM that changes the global log level
 	 */
-	public static void setGlobalLogLvl(LogEnums logLvl) {
+	public static void setGlobalLogLvl(Log logLvl) {
 		globalLogLvl = logLvl;
 	}
 
@@ -19,7 +21,7 @@ public abstract class LogController {
 	 * <p>Gets the globalLogLvl attribute with the Log ENUM.</p>
 	 * @return Log - returns the current global log level
 	 */
-	public static LogEnums getGlobalLogLvl() {
+	public static Log getGlobalLogLvl() {
 		return globalLogLvl;
 	}
 
@@ -31,24 +33,24 @@ public abstract class LogController {
 	 * @param logLvl - Log ENUM sets the log level of that line
 	 * @param logLine - String is the actual log line (you can use [object].toString() when calling this method)
 	 */
-	public static void log(LogEnums logLvl, String logLine) {
+	public static void log(Log logLvl, String logLine) {
 		//error lvl
-		if (globalLogLvl == LogEnums.ERROR && logLvl == LogEnums.ERROR) {
+		if (globalLogLvl == Log.ERROR && logLvl == Log.ERROR) {
 			element = Thread.currentThread().getStackTrace()[2];
 			System.out.println(LocalDateTime.now() + " [" + logLvl + "] (" + element.getClassName() + ") " + logLine);
 		}
 		//info lvl
-		else if (globalLogLvl == LogEnums.INFO && (logLvl == LogEnums.ERROR || logLvl == LogEnums.INFO)) {
+		else if (globalLogLvl == Log.INFO && (logLvl == Log.ERROR || logLvl == Log.INFO)) {
 			element = Thread.currentThread().getStackTrace()[2];
 			System.out.println(LocalDateTime.now() + " [" + logLvl + "] (" + element.getClassName() + "." + element.getMethodName() + ") " + logLine);
 		}
 		//debug lvl
-		else if (globalLogLvl == LogEnums.DEBUG && (logLvl == LogEnums.ERROR || logLvl == LogEnums.INFO || logLvl == LogEnums.DEBUG)) {
+		else if (globalLogLvl == Log.DEBUG && (logLvl == Log.ERROR || logLvl == Log.INFO || logLvl == Log.DEBUG)) {
 			element = Thread.currentThread().getStackTrace()[2];
 			System.out.println(LocalDateTime.now() + " [" + logLvl + "] (" + element.getClassName() + "." + element.getMethodName() + "$" + element.getLineNumber() + ") " + logLine);
 		}
 		//trace lvl
-		else if (globalLogLvl == LogEnums.TRACE && (logLvl == LogEnums.ERROR || logLvl == LogEnums.INFO || logLvl == LogEnums.DEBUG || logLvl == LogEnums.TRACE)) {
+		else if (globalLogLvl == Log.TRACE && (logLvl == Log.ERROR || logLvl == Log.INFO || logLvl == Log.DEBUG || logLvl == Log.TRACE)) {
 			element = Thread.currentThread().getStackTrace()[2];
 			System.out.println(LocalDateTime.now() + " [" + logLvl + "] (" + element.getClassName() + "." + element.getMethodName() + "$" + element.getLineNumber() + ") " + logLine);
 		}

@@ -1,3 +1,4 @@
+package com.github.mrpaulblack.tron;
 
 /**
 * <h1>MsgTypeEnums</h1>
@@ -7,7 +8,7 @@
 * @version 1.0
 * @since   2021-12-29
 */
-public enum MsgTypeEnums { //ebenfalls Frage an Server-Gruppe: Was davon brauchen wir realistisch wirklich. 
+public enum MsgType { //ebenfalls Frage an Server-Gruppe: Was davon brauchen wir realistisch wirklich. 
 
     REGISTER,
 	READY,

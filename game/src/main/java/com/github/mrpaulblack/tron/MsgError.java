@@ -1,3 +1,5 @@
+package com.github.mrpaulblack.tron;
+
 /**
 * <h1>MsgErrorEnums/h1>
 * <p>ENUM for error-types used in server & client (log?)</p>
@@ -6,7 +8,7 @@
 * @version 1.0
 * @since   2021-12-29
 */
-public enum MsgErrorEnums {
+public enum MsgError {
 
     UNSUPPORTEDMESSAGETYPE,
 	UNSUPPORTEDPROTOCOLVERSION,

@@ -1,3 +1,5 @@
+package com.github.mrpaulblack.tron;
+
 /**
 * <h1>PlayerStatusEnums/h1>
 * <p>ENUMs to support the game log-controller.</p>
@@ -6,7 +8,7 @@
 * @version 1.0
 * @since   2021-12-29
 */
-public enum LogEnums {
+public enum Log {
     ERROR,
 	INFO,
 	DEBUG,
