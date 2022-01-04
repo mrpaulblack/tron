@@ -1,3 +1,5 @@
+package com.github.mrpaulblack.tron;
+
 /**
 * <h1>PlayerStatusEnums/h1>
 * <p>ENUM to determain the overall state of the game.</p>
