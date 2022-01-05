@@ -1,14 +1,14 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>PlayerStatusEnums/h1>
+* <h1>PlayerStatus/h1>
 * <p>ENUMs to define player colors.</p>
 
 * @author: swt_lerngruppe_tron
 * @version 1.0
 * @since   2021-12-29
 */
-public enum PlayerColor {   //Ich habe mal die weiteren Funktionen nicht mit hinzugefügt, da ich mich erstmal auf die Enums konzentriere und da noch nicht ganz klar ist, wie die Farben miteinander interagieren. 
+public enum PlayerColor {
     RED,
 	BLUE,
 	GREEN,
@@ -18,9 +18,8 @@ public enum PlayerColor {   //Ich habe mal die weiteren Funktionen nicht mit hin
 
 	/**
 	 * <h1><i>toString</i></h1>
-	 * <p>This method is converting the ENUM to strings that are supported
-	 * by the MAEDN specification.</p>
-	 * @return String - return string supported by MAEDN specification
+	 * <p>Method converting Enums to string and return it.</p>
+	 * @return String 
 	 */
 	@Override
 	public String toString() {
@@ -33,5 +32,5 @@ public enum PlayerColor {   //Ich habe mal die weiteren Funktionen nicht mit hin
         case CYAN: return "cyan";
 		default: return "";
 		}
-	}    
+	}
 }
