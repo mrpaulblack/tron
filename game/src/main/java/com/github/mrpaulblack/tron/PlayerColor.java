@@ -18,7 +18,7 @@ public enum PlayerColor {
 
 	/**
 	 * <h1><i>toString</i></h1>
-	 * <p>Method converting Enums to string and return it.</p>
+	 * <p>Method converting Enums to string and return it supporting TRON spezifications.</p>
 	 * @return String 
 	 */
 	@Override
