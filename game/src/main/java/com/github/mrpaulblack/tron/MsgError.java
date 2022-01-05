@@ -1,8 +1,8 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>MsgErrorEnums/h1>
-* <p>ENUM for error-types used in server & client (log?)</p>
+* <h1>MsgError/h1>
+* <p>ENUM for error-types used in server & client </p>
 
 * @author: swt_lerngruppe_tron
 * @version 1.0
@@ -13,13 +13,13 @@ public enum MsgError {
     UNSUPPORTEDMESSAGETYPE,
 	UNSUPPORTEDPROTOCOLVERSION,
 	SERVERFULL,
-	ILLEGALMOVE,    //brauchen wir diesen Typen überhaupt?
-	NOTYOURTURN,
+	ILLEGALMOVE,
+	INSPECTATE,
 	UNKNOWN;
 
     /**
     * <h1><i>toString</i></h1>
-    * <p>Method converting Enums to string and return it.<p>
+    * <p>Method converting Enums to string and return it supporting TRON spezifications..<p>
     * @return String 
     */
     @Override
@@ -29,7 +29,7 @@ public enum MsgError {
         case UNSUPPORTEDPROTOCOLVERSION: return "unsupportedProtocolVersion";
         case SERVERFULL: return "serverFull";
         case ILLEGALMOVE: return "illegalMove";
-        case NOTYOURTURN: return "notYourTurn";
+        case INSPECTATE: return "inSpectate";
         case UNKNOWN: return "unknown";
         default: return "";    
         }       
