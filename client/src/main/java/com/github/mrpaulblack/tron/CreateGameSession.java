@@ -11,17 +11,15 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class Launcher {
+public class CreateGameSession {
     private Store store;
 
-    public Launcher(Store store) {
+    public CreateGameSession(Store store) {
         this.store = store;
     }
 
-    public void launcher(Stage stage, Boolean isVisible) {
+    public void createGameSession(Stage stage, Boolean isVisible) {
 
-        Inputs server = new Inputs();
-        Inputs port = new Inputs();
         Inputs session = new Inputs();
         // dont wok yet due stupid event handling #thanksjava
         // Buttons join = new Buttons();
@@ -30,21 +28,18 @@ public class Launcher {
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 event.consume();
+                System.out.println("New Session: " + session.getValue());
 
-                store.setserver(server.getValue());
-                store.setport(port.getValue());
-                store.setcurrentSessionID(session.getValue());
-
+                // debug
                 System.out.println("Server: " + store.getserver());
                 System.out.println("Port: " + store.getport());
                 System.out.println("Session: " + store.getcurrentSessionID());
 
-                CreateGameSession cgs = new CreateGameSession(store);
-                cgs.createGameSession(stage, true);
+                store.setcurrentSessionID(session.getValue());
             }
         };
 
-        Button join = new Button("join");
+        Button join = new Button("Create Session");
         join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
         join.setOnAction(buttonHandler);
 
@@ -53,10 +48,11 @@ public class Launcher {
 
         gridPane.setStyle("-fx-max-width: 500;");
 
-        gridPane.add(server.CenterdLabeldInput("Server"), 0, 0, 1, 1);
-        gridPane.add(port.CenterdLabeldInput("Port"), 1, 0, 1, 1);
-        gridPane.add(session.CenterdLabeldInput("Session"), 0, 1, 2, 1);
-        gridPane.add(join, 0, 2, 2, 1);
+        gridPane.add(
+                session.CenterdLabeldInput(
+                        "The Session '" + store.getcurrentSessionID() + "' dont exits, you can create one"),
+                0, 0, 2, 1);
+        gridPane.add(join, 0, 1, 2, 1);
         gridPane.setStyle("-fx-max-width: 500;");
 
         stage.setScene(scene);
