@@ -10,14 +10,14 @@ package com.github.mrpaulblack.tron;
 */
 public enum MsgType { //ebenfalls Frage an Server-Gruppe: Was davon brauchen wir realistisch wirklich. 
 
-    REGISTER,
-	READY,
-	MOVE,
+    HELLO,
 	WELCOME,
-	ASSIGNCOLOR,
+	REGISTER,
+	SESSIONSETTINGS,
+	SESSIONDATA,
 	UPDATE,
-	TURN,
-	PLAYERDISCONNECTED,
+	LOBBYDATA,
+	MOVE,
 	MESSAGE,
 	ERROR;
 	
@@ -29,14 +29,14 @@ public enum MsgType { //ebenfalls Frage an Server-Gruppe: Was davon brauchen wir
 	@Override
 	public String toString() {
 		switch(this) {
-		case REGISTER: return "register";
-		case READY: return "ready";
-		case MOVE: return "move";
+		case HELLO: return "hello";
 		case WELCOME: return "welcome";
-		case ASSIGNCOLOR: return "assignColor";
+		case REGISTER: return "register";
+		case SESSIONSETTINGS: return "sessionSettings";
+		case SESSIONDATA: return "sessionData";
 		case UPDATE: return "update";
-		case TURN: return "turn";
-		case PLAYERDISCONNECTED: return "playerDisconnected";
+		case LOBBYDATA: return "lobbyData";
+		case MOVE: return "move";
 		case MESSAGE: return "message";
 		case ERROR: return "error";
 		default: return "";

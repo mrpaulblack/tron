@@ -1,7 +1,7 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>PlayerStatus/h1>
+* <h1>PlayerColor</h1>
 * <p>ENUMs to define player colors.</p>
 
 * @author: swt_lerngruppe_tron
@@ -9,12 +9,22 @@ package com.github.mrpaulblack.tron;
 * @since   2021-12-29
 */
 public enum PlayerColor {
-    RED,
-	BLUE,
-	GREEN,
-	YELLOW,
-    PURPLE,
-    CYAN;
+    RED(0),
+	BLUE(1),
+	GREEN(2),
+	YELLOW(3),
+    PURPLE(4),
+    CYAN(5);
+
+	private int index;
+
+	PlayerColor(int index) {
+		this.index = index;
+	}
+
+	public int getIndex() {
+		return this.index;
+	}
 
 	/**
 	 * <h1><i>toString</i></h1>

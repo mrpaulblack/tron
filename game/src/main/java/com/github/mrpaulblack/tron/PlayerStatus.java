@@ -1,7 +1,7 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>PlayerStatus/h1>
+* <h1>PlayerStatus</h1>
 * <p>ENUM to determain the player stauts within a running game.</p>
 
 * @author: swt_lerngruppe_tron
