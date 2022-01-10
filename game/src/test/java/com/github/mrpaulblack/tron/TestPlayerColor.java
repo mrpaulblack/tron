@@ -100,4 +100,15 @@ public class TestPlayerColor {
         String testString = "cyan";
         assertEquals(testString, testEnum.toString());
     }
+
+    //testing color index
+    @Test
+    public void testIndex() {
+        assertEquals(0, PlayerColor.RED.getIndex());
+        assertEquals(1, PlayerColor.BLUE.getIndex());
+        assertEquals(2, PlayerColor.GREEN.getIndex());
+        assertEquals(3, PlayerColor.YELLOW.getIndex());
+        assertEquals(4, PlayerColor.PURPLE.getIndex());
+        assertEquals(5, PlayerColor.CYAN.getIndex());
+    }
 }

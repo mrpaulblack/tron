@@ -1,7 +1,7 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>PlayerStatus/h1>
+* <h1>Log</h1>
 * <p>ENUMs to support the game log-controller.</p>
 
 * @author: swt_lerngruppe_tron

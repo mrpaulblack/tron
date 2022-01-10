@@ -11,48 +11,18 @@ import static org.junit.Assert.*;
 * @since   2022-01-04
 */
 public class TestMsgType {
-    //Test if REGISTER is not null
+    //Test if HELLO is not null
     @Test
-    public void testingREGISTERNotNull(){
-        MsgType testEnum = MsgType.REGISTER;
+    public void testingHELLONotNull(){
+        MsgType testEnum = MsgType.HELLO;
         assertNotNull(testEnum);
     }
    
-    //Testing right use of toString method for case REGISTER
+    //Testing right use of toString method for case HELLO
     @Test 
-    public void testingREGISTERToString() {    
-        MsgType testEnum = MsgType.REGISTER;        
-        String testString = "register";
-        assertEquals(testString, testEnum.toString());
-    }
-
-    //Test if READY is not null
-    @Test
-    public void testingREADYNotNull(){
-        MsgType testEnum = MsgType.READY;
-        assertNotNull(testEnum);
-    }
-   
-    //Testing right use of toString method for case READY
-    @Test 
-    public void testingREADYToString() {    
-        MsgType testEnum = MsgType.READY;        
-        String testString = "ready";
-        assertEquals(testString, testEnum.toString());
-    }
-
-    //Test if MOVE is not null
-    @Test
-    public void testingMOVENotNull(){
-        MsgType testEnum = MsgType.MOVE;
-        assertNotNull(testEnum);
-    }
-   
-    //Testing right use of toString method for case MOVE
-    @Test 
-    public void testingMOVEToString() {    
-        MsgType testEnum = MsgType.MOVE;        
-        String testString = "move";
+    public void testingHELLOToString() {    
+        MsgType testEnum = MsgType.HELLO;        
+        String testString = "hello";
         assertEquals(testString, testEnum.toString());
     }
 
@@ -69,20 +39,50 @@ public class TestMsgType {
         MsgType testEnum = MsgType.WELCOME;        
         String testString = "welcome";
         assertEquals(testString, testEnum.toString());
-    }    
+    }
 
-    //Test if ASSIGNCOLOR is not null
+    //Test if REGISTER is not null
     @Test
-    public void testingASSIGNCOLORNotNull(){
-        MsgType testEnum = MsgType.ASSIGNCOLOR;
+    public void testingREGISTERNotNull(){
+        MsgType testEnum = MsgType.REGISTER;
         assertNotNull(testEnum);
     }
    
-    //Testing right use of toString method for case ASSIGNCOLOR
+    //Testing right use of toString method for case REGISTER
     @Test 
-    public void testingASSIGNCOLORToString() {    
-        MsgType testEnum = MsgType.ASSIGNCOLOR;        
-        String testString = "assignColor";
+    public void testingREGISTERToString() {    
+        MsgType testEnum = MsgType.REGISTER;        
+        String testString = "register";
+        assertEquals(testString, testEnum.toString());
+    }
+
+    //Test if SESSIONSETTINGS is not null
+    @Test
+    public void testingSESSIONSETTINGSNotNull(){
+        MsgType testEnum = MsgType.SESSIONSETTINGS;
+        assertNotNull(testEnum);
+    }
+   
+    //Testing right use of toString method for case SESSIONSETTINGS
+    @Test 
+    public void testingSESSIONSETTINGSToString() {    
+        MsgType testEnum = MsgType.SESSIONSETTINGS;        
+        String testString = "sessionSettings";
+        assertEquals(testString, testEnum.toString());
+    }    
+
+    //Test if SESSIONDATA is not null
+    @Test
+    public void testingSESSIONDATANotNull(){
+        MsgType testEnum = MsgType.SESSIONDATA;
+        assertNotNull(testEnum);
+    }
+   
+    //Testing right use of toString method for case SESSIONDATA
+    @Test 
+    public void testingSESSIONDATAToString() {    
+        MsgType testEnum = MsgType.SESSIONDATA;        
+        String testString = "sessionData";
         assertEquals(testString, testEnum.toString());
     }
 
@@ -101,33 +101,33 @@ public class TestMsgType {
         assertEquals(testString, testEnum.toString());
     }
 
-    //Test if TURN is not null
+    //Test if LOBBYDATA is not null
     @Test
-    public void testingTURNNotNull(){
-        MsgType testEnum = MsgType.TURN;
+    public void testingLOBBYDATANotNull(){
+        MsgType testEnum = MsgType.LOBBYDATA;
         assertNotNull(testEnum);
     }
    
-    //Testing right use of toString method for case TURN
+    //Testing right use of toString method for case LOBBYDATA
     @Test 
-    public void testingTURNToString() {    
-        MsgType testEnum = MsgType.TURN;        
-        String testString = "turn";
+    public void testingLOBBYDATAToString() {    
+        MsgType testEnum = MsgType.LOBBYDATA;        
+        String testString = "lobbyData";
         assertEquals(testString, testEnum.toString());
     }
 
-    //Test if PLAYERDISCONNECTED is not null
+    //Test if MOVE is not null
     @Test
-    public void testingPLAYERDISCONNECTEDNotNull(){
-        MsgType testEnum = MsgType.PLAYERDISCONNECTED;
+    public void testingMOVENotNull(){
+        MsgType testEnum = MsgType.MOVE;
         assertNotNull(testEnum);
     }
    
-    //Testing right use of toString method for case PLAYERDISCONNECTED
+    //Testing right use of toString method for case MOVE
     @Test 
-    public void testingPLAYERDISCONNECTEDToString() {    
-        MsgType testEnum = MsgType.PLAYERDISCONNECTED;        
-        String testString = "playerDisconnected";
+    public void testingMOVEToString() {    
+        MsgType testEnum = MsgType.MOVE;        
+        String testString = "move";
         assertEquals(testString, testEnum.toString());
     }
 
