@@ -12,11 +12,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 public class CreateGameSession  extends SceneManager{
-    private Store store;
-
-    public CreateGameSession(Store store) {
-        this.store = store;
-    }
 
     public void createGameSession(Stage stage, Boolean isVisible) {
 
@@ -44,6 +39,8 @@ public class CreateGameSession  extends SceneManager{
                 System.out.println("Port: " + store.getport());
                 System.out.println("Session: " + store.getcurrentSessionID());
                 updateLabel(gridPane, session, join);
+
+                SceneManager.pushTo("gameReadyScreen");
             }
         };
 

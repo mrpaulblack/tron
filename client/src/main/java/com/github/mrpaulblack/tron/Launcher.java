@@ -11,13 +11,8 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class Launcher extends SceneManager{
-    private Store store;
+public class Launcher extends SceneManager {
 
-    public Launcher(Store store) {
-        this.store = store;
-    }
- 
     public void launcher(Stage stage, Boolean isVisible) {
 
         Inputs server = new Inputs();
@@ -42,10 +37,10 @@ public class Launcher extends SceneManager{
                 SceneManager.pushTo("createGame");
             }
         };
-
         Button join = new Button("join");
         join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
         join.setOnAction(buttonHandler);
+
 
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(new StackPane(gridPane));

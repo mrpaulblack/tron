@@ -7,10 +7,17 @@ public class SceneManager {
     static Stage global = null;
 
     static Store store = new Store();
-    static Launcher l = new Launcher(store);
-    static CreateGameSession cgs = new CreateGameSession(store);
+    static Launcher l = new Launcher();
+    static CreateGameSession cgs = new CreateGameSession();
+    static GameReadyScreen grs = new GameReadyScreen();
 
-    
+    static public void showDebugWindow() {
+        // Debug Window for Store
+        Stage secondStage = new Stage();
+        StoreWindow sw = new StoreWindow();
+        sw.showStore(secondStage, store);
+    }
+
     public void windowControll(Stage stage) {
         global = stage;
         // the Window Logic will happen here
@@ -24,6 +31,7 @@ public class SceneManager {
 
         l.launcher(global, false);
         cgs.createGameSession(global, false);
+        grs.gameReadyScreen(global, false);
 
         System.out.println("try push: " + pushto);
         switch (pushto) {
@@ -34,6 +42,10 @@ public class SceneManager {
             case "createGame":
                 System.out.println("push to 'createGame'");
                 cgs.createGameSession(global, true);
+                break;
+            case "gameReadyScreen":
+                System.out.println("push to 'gamReadyScreen'");
+                grs.gameReadyScreen(global, true);
                 break;
         }
     }

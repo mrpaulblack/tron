@@ -15,9 +15,8 @@ public class Buttons {
 
     public Button goTo(String name, String goTo) {
 
-        SceneManager sm = new SceneManager();
-        sm.pushTo(goTo);
-
+        SceneManager.pushTo(goTo);
+        
         Button changeScene = new Button(name);
         changeScene.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
 
