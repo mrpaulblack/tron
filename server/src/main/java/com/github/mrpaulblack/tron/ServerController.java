@@ -7,6 +7,11 @@
  * {"type":"hello","data":{"protocolVersion":1}}
  * {"type":"hello","data":{"protocolVersion":-1,"clientName":"tron_cli_client","clientVersion":0.1}}
  * {"type":"hello","data":{"protocolVersion":1,"clientName":"tron_cli_client","clientVersion":0.1}}
+ * 
+ * ### client hello
+ * {"type":"register","data":{"protocolVersion":1}}
+ * {"type":"register","data":{"sessionID":""}}
+ * {"type":"register","data":{"sessionID":"test"}}
  *
  * ### type errors
  * {"type":"test","data":{"test":1}}
@@ -54,6 +59,20 @@ public class ServerController {
 
 
 
+    // send session settings to client
+    private void sendSessionSettings(URI client) throws Exception {
+        JSONObject json = new JSONObject();
+        JSONObject data = new JSONObject();
+
+        json.put("type", MsgType.SESSIONSETTINGS.toString());
+        data.put("settings", GameController.getSettings());
+        json.put("data", data);
+
+        server.send(client, json.toString());
+    }
+
+
+
     // send error with optional error message to client
     private void sendError(URI client, MsgError error, String message) throws Exception {
         JSONObject json = new JSONObject();
@@ -84,6 +103,7 @@ public class ServerController {
                     if (data.has("protocolVersion") && data.has("clientName") && data.has("clientVersion")) {
                         if (data.getInt("protocolVersion") <= protocolVersion && data.getInt("protocolVersion") > 0) {
                             clientState.put(client, MsgType.HELLO);
+                            LogController.log(Log.DEBUG, "{" + client + "} has send HELLO");
                             sendWelcome(client);
                         }
                         else {
@@ -93,21 +113,23 @@ public class ServerController {
                     }
                     else {
                         sendError(client, MsgError.UNSUPPORTEDMESSAGETYPE, "Your payload is missing at least one required keys: protocolVersion, clientName, clientVersion.");
-                        throw new IllegalArgumentException("Payload is missing required keys");
+                        throw new IllegalArgumentException("payload is missing at least one required keys: protocolVersion, clientName, clientVersion");
                     }
                 }
 
                 // client register
                 else if (json.getString("type").equals(MsgType.REGISTER.toString()) && clientState.get(client) == MsgType.HELLO) {
                     if (data.has("sessionID")) {
-                        if (data.getString("sessionID").length() <= 64) {
+                        if (data.getString("sessionID").length() <= 64 && data.getString("sessionID").length() >= 1) {
                             // create new session if it does not exist already
                             if (session.get(data.getString("sessionID")) == null) {
                                 clientSession.put(client, data.getString("sessionID"));
-                                // TODO call static game method to return sessionSettings to client
+                                LogController.log(Log.DEBUG, "{" + client + "} created new session with session ID: " + clientSession.get(client));
+                                sendSessionSettings(client);
                             }
                             // otherwise register in existing session
                             else {
+                                LogController.log(Log.DEBUG, "{" + client + "} has registred to existing session with ID: " + clientSession.get(client));
                                 // TODO impl error handl. when client tries to connect to session that is not set up yet by first client; or when client tries to connect to running game
                                 // TODO impl register in each actual game
                                 // TODO handeling of register in between session create and session status waiting for players
@@ -115,13 +137,13 @@ public class ServerController {
                             clientState.put(client, MsgType.REGISTER);
                         }
                         else {
-                            sendError(client, MsgError.UNSUPPORTEDMESSAGETYPE, "Your session ID is to long. The sever alows a maximum length of 64 char.");
-                            throw new IllegalArgumentException("Session ID allows a maximum of 64 char");
+                            sendError(client, MsgError.UNSUPPORTEDMESSAGETYPE, "Your session ID is to long or to small. The server allows between 1 and 64 char.");
+                            throw new IllegalArgumentException("session ID needs to be between 1 and 64 char");
                         }
                     }
                     else {
                         sendError(client, MsgError.UNSUPPORTEDMESSAGETYPE, "Your payload is missing the required key: sessionID.");
-                        throw new IllegalArgumentException("Payload is missing required keys");
+                        throw new IllegalArgumentException("payload is missing the required key: sessionID");
                     }
                 }
 

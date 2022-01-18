@@ -47,7 +47,7 @@ public class Server {
 		try {
 			//enable trace for debug
 			LogController.setGlobalLogLvl(Log.TRACE);
-			Server server = new Server(300, InetAddress.getByName("127.0.0.1"));
+			Server server = new Server(3000, InetAddress.getByName("127.0.0.1"));
 			server.recieve();
 		} catch (Exception e) {
 			LogController.log(Log.ERROR, e.toString());
@@ -64,6 +64,7 @@ public class Server {
 	 * parsed based on API spec.</p>
 	 */
 	private void recieve() throws Exception {
+		LogController.log(Log.INFO, "Server started: " + socket.getLocalSocketAddress());
 		while (true) {
 			DatagramPacket request = new DatagramPacket(new byte[512], 512);
 			socket.receive(request);
@@ -86,6 +87,7 @@ public class Server {
 	 */
 	protected void send(URI client, String payload) throws Exception {
 		LogController.log(Log.TRACE,"{" + client + "} TX: " + payload);
+		payload += "\n";
 		socket.send(new DatagramPacket(payload.getBytes(), payload.getBytes().length, InetAddress.getByName(client.getHost()), client.getPort()));
 	}
 }

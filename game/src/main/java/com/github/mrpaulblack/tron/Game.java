@@ -3,12 +3,20 @@
  */
 package com.github.mrpaulblack.tron;
 
-public class Game {
+import org.json.JSONObject;
+
+public class Game implements GameController {
     public String getGreeting() {
         return "Hello World from UPD Test Server!";
     }
 
     public static void main(String[] args) {
         System.out.println(new Game().getGreeting());
+    }
+
+    @Override
+    public boolean setSettings(JSONObject settings) {
+        // TODO Auto-generated method stub
+        return false;
     }
 }
