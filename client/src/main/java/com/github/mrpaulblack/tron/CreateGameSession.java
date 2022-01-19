@@ -11,7 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class CreateGameSession  extends SceneManager{
+public class CreateGameSession extends SceneManager {
 
     public void createGameSession(Stage stage, Boolean isVisible) {
 
@@ -23,7 +23,7 @@ public class CreateGameSession  extends SceneManager{
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(new StackPane(gridPane));
 
-        //Button Init
+        // Button Init
         Button join = new Button("Create Session");
 
         // get values
@@ -39,6 +39,8 @@ public class CreateGameSession  extends SceneManager{
                 System.out.println("Port: " + store.getport());
                 System.out.println("Session: " + store.getcurrentSessionID());
                 updateLabel(gridPane, session, join);
+
+                StoreWindow.refreshStore(store);
 
                 SceneManager.pushTo("gameReadyScreen");
             }
@@ -58,7 +60,7 @@ public class CreateGameSession  extends SceneManager{
         }
     }
 
-    //Is needed for better reprint and better ractivity
+    // Is needed for better reprint and better ractivity
     private void updateLabel(GridPane gridPane, Inputs session, Button join) {
         gridPane.getChildren().clear();
         gridPane.add(

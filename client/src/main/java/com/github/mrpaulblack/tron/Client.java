@@ -10,6 +10,7 @@ public class Client extends Application {
 
         // Window predefinitions go here
         SceneManager sm = new SceneManager();
+        sm.showDebugWindow();
         sm.windowControll(stage);
     }
 

@@ -11,7 +11,7 @@ public class SceneManager {
     static CreateGameSession cgs = new CreateGameSession();
     static GameReadyScreen grs = new GameReadyScreen();
 
-    static public void showDebugWindow() {
+    public void showDebugWindow() {
         // Debug Window for Store
         Stage secondStage = new Stage();
         StoreWindow sw = new StoreWindow();
