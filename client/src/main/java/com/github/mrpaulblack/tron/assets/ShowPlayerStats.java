@@ -45,7 +45,7 @@ public class ShowPlayerStats {
                 event.consume();
                 System.out.println("hi");
 
-                store.setchosenName(setName.getValue());
+                store.chosenName = setName.getValue();
                 store.setchosenColor(setColor.getValue());
 
                 StoreWindow.refreshStore(store);
