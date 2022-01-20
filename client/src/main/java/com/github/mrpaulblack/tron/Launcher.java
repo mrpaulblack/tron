@@ -30,8 +30,6 @@ public class Launcher extends SceneManager {
                 store.setport(port.getValue());
                 store.setcurrentSessionID(session.getValue());
 
-                StoreWindow.refreshStore(store);
-
                 SceneManager.pushTo("createGame");
             }
         };
@@ -50,7 +48,6 @@ public class Launcher extends SceneManager {
         gridPane.add(join, 0, 2, 2, 1);
         gridPane.setStyle("-fx-max-width: 500;");
 
-        System.out.println("Show Launcher is: " + isVisible);
         if (isVisible) {
             stage.setScene(scene);
             stage.show();

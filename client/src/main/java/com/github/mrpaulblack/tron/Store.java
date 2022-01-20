@@ -7,14 +7,30 @@ public class Store {
     private String currentSessionID = "";
     private String port = "";
     private String server = "";
-    public String chosenName = "";
+    private String chosenName = "";
     private String chosenColor = "";
     private String[] otherPlayerName = {};
     private String[] otherPlayerColor = {};
+    private String[] otherPlayerReady = {};
 
+    /*
+     * private String[] otherPlayerName = { dummyDataFabric("name"),
+     * dummyDataFabric("name"),
+     * dummyDataFabric("name"), dummyDataFabric("name"),
+     * dummyDataFabric("name"), dummyDataFabric("name") };
+     * private String[] otherPlayerColor = { dummyDataFabric("color"),
+     * dummyDataFabric("color"),
+     * dummyDataFabric("color"), dummyDataFabric("color"),
+     * dummyDataFabric("color"), dummyDataFabric("color") };
+     * private String[] otherPlayerReady = { dummyDataFabric("isReady"),
+     * dummyDataFabric("isReady"),
+     * dummyDataFabric("isReady"), dummyDataFabric("isReady"),
+     * dummyDataFabric("isReady"), dummyDataFabric("isReady") };
+     */
     // ___SESSIONID___
     public void setcurrentSessionID(String value) {
         currentSessionID = value;
+        StoreWindow.refreshStore(this);
     }
 
     public String getcurrentSessionID() {
@@ -24,6 +40,7 @@ public class Store {
     // ___PORT___
     public void setport(String value) {
         port = value;
+        StoreWindow.refreshStore(this);
     }
 
     public String getport() {
@@ -33,6 +50,7 @@ public class Store {
     // ___SERVER___
     public void setserver(String value) {
         server = value;
+        StoreWindow.refreshStore(this);
     }
 
     public String getserver() {
@@ -42,17 +60,19 @@ public class Store {
     // ___CHOSENNAME___
     public void setchosenName(String value) {
         chosenName = value;
+        StoreWindow.refreshStore(this);
     }
 
     public String getchosenName() {
-        GameReadyScreen.reprintData();
+
         return chosenName;
     }
 
     // ___CHOSENCOLOR___
     public void setchosenColor(String value) {
-        GameReadyScreen.reprintData();
         chosenColor = value;
+        GameReadyScreen.reprintData();
+        StoreWindow.refreshStore(this);
     }
 
     public String getchosenColor() {
@@ -61,22 +81,51 @@ public class Store {
 
     // ___OTHERPLAYERNAME___
     public void setotherPlayerName(String[] value) {
-        GameReadyScreen.reprintData();
         otherPlayerName = value;
+        GameReadyScreen.reprintData();
+        StoreWindow.refreshStore(this);
     }
 
     public String[] getotherPlayerName() {
+
+        String[] dummy = { dummyDataFabric("name"),
+                dummyDataFabric("name"),
+                dummyDataFabric("name"), dummyDataFabric("name"),
+                dummyDataFabric("name"), dummyDataFabric("name") };
+        otherPlayerName = dummy;
         return otherPlayerName;
     }
 
     // ___OTHERPLAYERCOLOR___
     public void setotherPlayerColor(String[] value) {
-        GameReadyScreen.reprintData();
         otherPlayerColor = value;
+        GameReadyScreen.reprintData();
+        StoreWindow.refreshStore(this);
     }
 
     public String[] getotherPlayerColor() {
+        String[] dummy = { dummyDataFabric("color"),
+                dummyDataFabric("color"),
+                dummyDataFabric("color"), dummyDataFabric("color"),
+                dummyDataFabric("color"), dummyDataFabric("color") };
+        otherPlayerColor = dummy;
         return otherPlayerColor;
+    }
+
+    // ___OTHERPLAYERREADY___
+    public void setotherPlayerReady(String[] value) {
+        otherPlayerReady = value;
+        GameReadyScreen.reprintData();
+        StoreWindow.refreshStore(this);
+    }
+
+    public String[] getotherPlayerReady() {
+        String[] dummy = { dummyDataFabric("isReady"),
+                dummyDataFabric("isReady"),
+                dummyDataFabric("isReady"), dummyDataFabric("isReady"),
+                dummyDataFabric("isReady"), dummyDataFabric("isReady") };
+        otherPlayerReady = dummy;
+        return otherPlayerReady;
     }
 
     // ___ALL___
@@ -89,6 +138,7 @@ public class Store {
         }
 
         System.out.println(arr);
+        StoreWindow.refreshStore(this);
         return arr;
     }
 

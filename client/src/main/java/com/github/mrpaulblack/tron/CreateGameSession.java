@@ -30,17 +30,8 @@ public class CreateGameSession extends SceneManager {
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 event.consume();
-                System.out.println("New Session: " + session.getValue());
-
                 store.setcurrentSessionID(session.getValue());
-
-                // debug
-                System.out.println("Server: " + store.getserver());
-                System.out.println("Port: " + store.getport());
-                System.out.println("Session: " + store.getcurrentSessionID());
                 updateLabel(gridPane, session, join);
-
-                StoreWindow.refreshStore(store);
 
                 SceneManager.pushTo("gameReadyScreen");
             }
@@ -53,7 +44,6 @@ public class CreateGameSession extends SceneManager {
 
         updateLabel(gridPane, session, join);
 
-        System.out.println("Show gfs is: " + isVisible);
         if (isVisible) {
             stage.setScene(scene);
             stage.show();

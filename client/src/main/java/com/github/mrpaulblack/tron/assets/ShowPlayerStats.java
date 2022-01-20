@@ -1,16 +1,15 @@
 package com.github.mrpaulblack.tron.assets;
 
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
-import javafx.geometry.HPos;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 import com.github.mrpaulblack.tron.Store;
-import com.github.mrpaulblack.tron.StoreWindow;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 
 public class ShowPlayerStats {
     private String value = "";
@@ -43,12 +42,9 @@ public class ShowPlayerStats {
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 event.consume();
-                System.out.println("hi");
 
-                store.chosenName = setName.getValue();
+                store.setchosenName(setName.getValue());
                 store.setchosenColor(setColor.getValue());
-
-                StoreWindow.refreshStore(store);
             }
         };
 
@@ -56,38 +52,41 @@ public class ShowPlayerStats {
         return grid;
     }
 
-    public Node showOther(String[][] data) {
+    public static Node showOther(String[][] data) {
 
         GridPane grid = new GridPane();
 
-        for (Integer i = 0; i < data.length; i++) {
-            GridPane innerGrid = new GridPane();
+        if (data.length > 0) {
 
-            // Label Init
-            Label playerName = new Label(data[i][0]);
-            Label playerColor = new Label(data[i][1]);
-            Label playerReady = new Label(data[i][2]);
+            for (Integer i = 0; i < data[0].length; i++) {
+                GridPane innerGrid = new GridPane();
 
-            // Label align center (Why not in fxcss #thxjavafx)
-            GridPane.setHalignment(playerName, HPos.CENTER);
-            GridPane.setHalignment(playerColor, HPos.CENTER);
-            GridPane.setHalignment(playerReady, HPos.CENTER);
+                // Label Init
+                Label playerName = new Label(data[0][i]);
+                Label playerColor = new Label(data[1][i]);
+                Label playerReady = new Label(data[2][i]);
 
-            // css styleing
-            playerName.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
-            playerColor.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
-            playerReady.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                // Label align center (Why not in fxcss #thxjavafx)
+                GridPane.setHalignment(playerName, HPos.CENTER);
+                GridPane.setHalignment(playerColor, HPos.CENTER);
+                GridPane.setHalignment(playerReady, HPos.CENTER);
 
-            // add label to grid
-            innerGrid.add(playerName, 0, 0, 1, 1);
-            innerGrid.add(playerColor, 1, 0, 1, 1);
-            innerGrid.add(playerReady, 2, 0, 1, 1);
+                // css styleing
+                playerName.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                playerColor.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                playerReady.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
 
-            innerGrid.getStyleClass().addAll("pane1");
-            innerGrid.setStyle(
-                    "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+                // add label to grid
+                innerGrid.add(playerName, 0, 0, 1, 1);
+                innerGrid.add(playerColor, 1, 0, 1, 1);
+                innerGrid.add(playerReady, 2, 0, 1, 1);
 
-            grid.add(innerGrid, 0, i, 1, 1);
+                innerGrid.getStyleClass().addAll("pane1");
+                innerGrid.setStyle(
+                        "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+
+                grid.add(innerGrid, 0, i, 1, 1);
+            }
         }
         grid.setStyle(
                 "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
