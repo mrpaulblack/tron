@@ -30,9 +30,7 @@ public class Launcher extends SceneManager {
                 store.setport(port.getValue());
                 store.setcurrentSessionID(session.getValue());
 
-                System.out.println("Server: " + store.getserver());
-                System.out.println("Port: " + store.getport());
-                System.out.println("Session: " + store.getcurrentSessionID());
+                StoreWindow.refreshStore(store);
 
                 SceneManager.pushTo("createGame");
             }
@@ -40,7 +38,6 @@ public class Launcher extends SceneManager {
         Button join = new Button("join");
         join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
         join.setOnAction(buttonHandler);
-
 
         GridPane gridPane = new GridPane();
         Scene scene = new Scene(new StackPane(gridPane));
