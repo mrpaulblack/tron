@@ -101,6 +101,21 @@ public class TestPlayerColor {
         assertEquals(testString, testEnum.toString());
     }
 
+    //Test if UNDEFINED is not null
+    @Test
+    public void testingUNDEFINEDNotNull(){
+        PlayerColor testEnum = PlayerColor.UNDEFINED;
+        assertNotNull(testEnum);
+    }
+       
+    //Testing right use of toString method for case CYAN
+    @Test 
+    public void testingUNDEFINEDToString() {    
+        PlayerColor testEnum = PlayerColor.UNDEFINED;       
+        String testString = "undefined";
+        assertEquals(testString, testEnum.toString());
+    }
+    
     //testing color index
     @Test
     public void testIndex() {
@@ -110,5 +125,6 @@ public class TestPlayerColor {
         assertEquals(3, PlayerColor.YELLOW.getIndex());
         assertEquals(4, PlayerColor.PURPLE.getIndex());
         assertEquals(5, PlayerColor.CYAN.getIndex());
+        assertEquals(6, PlayerColor.UNDEFINED.getIndex());
     }
 }
