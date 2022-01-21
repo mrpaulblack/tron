@@ -14,8 +14,7 @@ public enum PlayerColor {
 	GREEN(2),
 	YELLOW(3),
     PURPLE(4),
-    CYAN(5),
-	UNDEFINED(6);
+    CYAN(5);
 
 	private int index;
 
@@ -41,7 +40,6 @@ public enum PlayerColor {
 		case YELLOW: return "yellow";
         case PURPLE: return "purple";
         case CYAN: return "cyan";
-		case UNDEFINED: return "undefined";
 		default: return "";
 		}
 	}
