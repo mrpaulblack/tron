@@ -1,7 +1,8 @@
 package com.github.mrpaulblack.tron;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.lang.reflect.InvocationTargetException;
+
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 /**
@@ -20,63 +21,103 @@ public class TestPlayer {
 
     //Test setReadyPLayer
     @Test
-    public void testSetReadyPlayer1() throws NoSuchFieldException, SecurityException{
+    public void testSetReadyPlayer1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         PlayerColor tcolor = PlayerColor.YELLOW;
         testPlayer.setReadyPlayer("tname", tcolor);
-        assertEquals(true, Player.class.getDeclaredField("ready"));
+
+        Field pF= Player.class.getDeclaredField("ready");
+        pF.setAccessible(true);
+        boolean fV = (boolean) pF.get(testPlayer);
+
+        assertEquals(true, fV);
     }
     @Test
-    public void testSetReadyPlayer2() throws NoSuchFieldException, SecurityException{
+    public void testSetReadyPlayer2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         PlayerColor tcolor = PlayerColor.YELLOW;
         String testString = "tname";
         testPlayer.setReadyPlayer(testString, tcolor);
-        assertEquals(testString, Player.class.getDeclaredField("name"));
+
+        Field pF= Player.class.getDeclaredField("name");
+        pF.setAccessible(true);
+        String fV = (String) pF.get(testPlayer);
+
+        assertEquals(testString, fV);
     }
     @Test
-    public void testSetReadyPlayer3() throws NoSuchFieldException, SecurityException{
+    public void testSetReadyPlayer3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         PlayerColor tcolor = PlayerColor.YELLOW;
         testPlayer.setReadyPlayer("tname", tcolor);
-        assertEquals(tcolor, Player.class.getDeclaredField("color"));
+
+        Field pF= Player.class.getDeclaredField("color");
+        pF.setAccessible(true);
+        PlayerColor fV = (PlayerColor) pF.get(testPlayer);
+
+        assertEquals(tcolor, fV);
     }
 
     //Test setUnreadyPLayer
     @Test
-    public void testSetUnreadyPlayer1() throws NoSuchFieldException, SecurityException{
+    public void testSetUnreadyPlayer1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setUnreadyPlayer();
-        assertEquals(false, Player.class.getDeclaredField("ready"));
+
+        Field pF= Player.class.getDeclaredField("ready");
+        pF.setAccessible(true);
+        boolean fV = (boolean) pF.get(testPlayer);
+
+        assertEquals(false, fV);
     }
     @Test
-    public void testSetUnreadyPlayer2() throws NoSuchFieldException, SecurityException{
+    public void testSetUnreadyPlayer2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setUnreadyPlayer();
-        assertEquals("", Player.class.getDeclaredField("name"));
+
+        Field pF= Player.class.getDeclaredField("name");
+        pF.setAccessible(true);
+        String fV = (String) pF.get(testPlayer);
+
+        assertEquals("", fV);
     }
     @Test
-    public void testSetUnreadyPlayer3() throws NoSuchFieldException, SecurityException{
+    public void testSetUnreadyPlayer3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setUnreadyPlayer();
-        assertEquals(PlayerColor.UNDEFINED, Player.class.getDeclaredField("color"));
+
+        Field pF= Player.class.getDeclaredField("color");
+        pF.setAccessible(true);
+        PlayerColor fV = (PlayerColor) pF.get(testPlayer);
+        
+        assertEquals(PlayerColor.UNDEFINED, fV);
     }
 
     //Test setName und getName
     @Test
-    public void testSetName() throws NoSuchFieldException, SecurityException{
+    public void testSetName() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         String tname = "Testname";
         testPlayer.setName(tname);
-        assertEquals(tname, Player.class.getDeclaredField("name"));
+
+        Field pF= Player.class.getDeclaredField("name");
+        pF.setAccessible(true);
+        String fV = (String) pF.get(testPlayer);
+
+        assertEquals(tname, fV);
     }
 
     //Test setClientName
     @Test
-    public void testsetClientName() throws NoSuchFieldException, SecurityException{
+    public void testsetClientName() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setclientName("newName");
-        assertEquals("newName", Player.class.getDeclaredField("clientName"));
+
+        Field pF= Player.class.getDeclaredField("clientName");
+        pF.setAccessible(true);
+        String fV = (String) pF.get(testPlayer);
+
+        assertEquals("newName", fV);
     }
 
     //Test getClientName
@@ -88,10 +129,15 @@ public class TestPlayer {
 
     //Test setClientVersion
     @Test
-    public void testsetClientVersion() throws NoSuchFieldException, SecurityException {
+    public void testsetClientVersion() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setClientVersion(1.20f);
-        assertEquals(1.2f, Player.class.getDeclaredField("clientVersion"));
+
+        Field pF= Player.class.getDeclaredField("clientVersion");
+        pF.setAccessible(true);
+        Float fV = (Float) pF.get(testPlayer);
+
+        assertEquals(1.2f, fV, 0);
     }
 
     //Test getClientVersion
@@ -103,11 +149,16 @@ public class TestPlayer {
 
     //Test setPlayerID
     @Test
-    public void testsetPlayerID() throws NoSuchFieldException, SecurityException {
+    public void testsetPlayerID() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         UUID testID = UUID.fromString("2384f927-5e2f-3998-8baa-c768616287f5");
         testPlayer.setPlayerID(testID);
-        assertEquals(testID, Player.class.getDeclaredField("playerID"));
+
+        Field pF= Player.class.getDeclaredField("playerID");
+        pF.setAccessible(true);
+        UUID fV = (UUID) pF.get(testPlayer);
+
+        assertEquals(testID, fV);
     }
 
     //Test getPlayerID
@@ -119,10 +170,15 @@ public class TestPlayer {
 
     //Test setTailLenght
     @Test
-    public void testsetTailLenght() throws NoSuchFieldException, SecurityException {
+    public void testsetTailLenght() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setTailLenght(200);
-        assertEquals(200, Player.class.getDeclaredField("tailLenght"));
+
+        Field pF= Player.class.getDeclaredField("tailLenght");
+        pF.setAccessible(true);
+        Integer fV = (Integer) pF.get(testPlayer);
+
+        assertEquals(200, fV, 0);
     }
     
     //Test getTailLenght
@@ -134,10 +190,15 @@ public class TestPlayer {
     
     //Test setColor
     @Test
-    public void testsetColor() throws NoSuchFieldException, SecurityException {
+    public void testsetColor() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setColor(PlayerColor.YELLOW);
-        assertEquals(PlayerColor.YELLOW, Player.class.getDeclaredField("color"));
+
+        Field pF= Player.class.getDeclaredField("color");
+        pF.setAccessible(true);
+        PlayerColor fV = (PlayerColor) pF.get(testPlayer);
+
+        assertEquals(PlayerColor.YELLOW, fV);
     }
     
     //Test getColor
@@ -150,10 +211,15 @@ public class TestPlayer {
     
     //Test setAlive
     @Test
-    public void testsetAlive() throws NoSuchFieldException, SecurityException {
+    public void testsetAlive() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setAlive(true);
-        assertEquals(true, Player.class.getDeclaredField("aliver"));
+
+        Field pF= Player.class.getDeclaredField("alive");
+        pF.setAccessible(true);
+        boolean fV = (boolean) pF.get(testPlayer);
+
+        assertEquals(true, fV);
     }
     
     //Test getAlive
@@ -165,10 +231,15 @@ public class TestPlayer {
     
     //Test setReady
     @Test
-    public void testsetReady() throws NoSuchFieldException, SecurityException {
+    public void testsetReady() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         testPlayer.setReady(true);
-        assertEquals(true, Player.class.getDeclaredField("ready"));
+
+        Field pF= Player.class.getDeclaredField("ready");
+        pF.setAccessible(true);
+        boolean fV = (boolean) pF.get(testPlayer);
+
+        assertEquals(true, fV);
     }
     
     //Test getReady
