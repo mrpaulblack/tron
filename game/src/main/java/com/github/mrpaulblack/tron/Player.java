@@ -38,7 +38,7 @@ public class Player{
     public Player(String clientName, Float clientVersion, UUID playerID, Integer tailLenght){
         this.clientName = clientName;
         this.clientVersion = clientVersion;
-        this.tailLenght = tailLenght;
+        this.tailLenght = tailLenght- 1;
         this.playerID = playerID;
     }
 
@@ -61,6 +61,40 @@ public class Player{
             direction = 'W';
         }
         else{}
+    }
+
+    /**
+	 * <h1><i>changeDirection</i></h1>
+	 * <p>Method to change the direction relative to the current direction. </p>
+	 * @param fieldSize - integer that indicates a directional change or not, communicated from client. 0 = no change1 = left turn | 2 = right turn
+	 */
+    public void changeDirection(int newDirection){
+        if (newDirection == 0){}
+
+        else if ((direction == 'N') && (newDirection == 1)){
+            direction = 'W';
+        }
+        else if ((direction == 'N') && (newDirection == 2)){
+            direction = 'E';
+        }
+        else if ((direction == 'E') && (newDirection == 1)){
+            direction = 'N';
+        }
+        else if ((direction == 'E') && (newDirection == 2)){
+            direction = 'S';
+        }
+        else if ((direction == 'S') && (newDirection == 1)){
+            direction = 'E';
+        }
+        else if ((direction == 'S') && (newDirection == 2)){
+            direction = 'W';
+        }
+        else if ((direction == 'W') && (newDirection == 1)){
+            direction = 'S';
+        }
+        else if ((direction == 'W') && (newDirection == 2)){
+            direction = 'N';
+        }
     }
 
 	/**
@@ -119,7 +153,7 @@ public class Player{
 	* <p>Sets player clientName.</p>
 	* @param clientName - String as clientName of the player.
 	*/
-    protected void setclientName(String clientName){
+    protected void setClientName(String clientName){
         this.clientName = clientName;
     }
 
@@ -241,16 +275,42 @@ public class Player{
     protected Boolean getReady(){
         return ready;
     }
-
     
+    /**
+	 * <h1><i>move</i></h1>
+	 * <p>This method executes one move and changes the positions in the movement arrays.</p>
+	 */
     protected void move(){
+        for(int i = tailLenght; i>0; i--){
+            positionX[i] = positionX[i-1];
+            positionX[i] = positionX[i-1];
+        }
+        switch(direction){
+            case 'N':
+            positionY[0] = positionY[0]-1;
+            break;
 
+            case 'E':
+            positionX[0] = positionX[0]+1;
+            break;
 
+            case 'S':
+            positionY[0] = positionY[0]+1;
+            break;
 
+            case 'W':
+            positionX[0] = positionX[0]-1;
+            break;
+        }
     }
 
+    /**
+	 * <h1><i>getPositionX</i></h1>
+	 * <p>This method returns the players current position on the X-axis.</p>
+	 * @return Integer - That stands for the corresponding "pixel" on the field.
+	 */
     protected Integer getPositionX(Integer requestedPositionX){
-        if(requestedPositionX <= tailLenght){
+        if((requestedPositionX <= tailLenght) && requestedPositionX >= 0){
             return positionX[requestedPositionX];
         }
         else{ //kleiner 0 hinzufügen
@@ -258,8 +318,13 @@ public class Player{
         }
     }
 
+    /**
+	 * <h1><i>getPositionY</i></h1>
+	 * <p>This method returns the players current position on the Y-axis..</p>
+	 * @return Integer - That stands for the corresponding "pixel" on the field.
+	 */
     protected Integer getPositionY(Integer requestedPositionY){
-        if(requestedPositionY <= tailLenght){
+        if((requestedPositionY <= tailLenght) && requestedPositionY >= 0){
             return positionY[requestedPositionY];
         }
         else{
