@@ -6,6 +6,8 @@ package com.github.mrpaulblack.tron;
 import org.json.JSONObject;
 
 public class Game implements GameController {
+
+    
     public String getGreeting() {
         return "Hello World from UPD Test Server!";
     }
@@ -19,4 +21,7 @@ public class Game implements GameController {
         // TODO Auto-generated method stub
         return false;
     }
+
+    //Tail lenght muss hier gespeichert werdne
+    //Spielfeldgröße hier speichern
 }
