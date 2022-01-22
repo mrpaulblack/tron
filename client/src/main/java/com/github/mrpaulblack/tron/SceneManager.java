@@ -10,6 +10,7 @@ public class SceneManager {
     static Launcher l = new Launcher();
     static CreateGameSession cgs = new CreateGameSession();
     static GameReadyScreen grs = new GameReadyScreen();
+    static GameWindow gw = new GameWindow();
 
     public void showDebugWindow() {
         // Debug Window for Store
@@ -32,6 +33,7 @@ public class SceneManager {
         l.launcher(global, false);
         cgs.createGameSession(global, false);
         grs.gameReadyScreen(global, false);
+        gw.gameWindow(global, false);
 
         System.out.println("try push: " + pushto);
         switch (pushto) {
@@ -47,6 +49,12 @@ public class SceneManager {
                 System.out.println("push to 'gamReadyScreen'");
                 grs.gameReadyScreen(global, true);
                 break;
+            case "gamewindow":
+                System.out.println("push to 'gamewindow'");
+                gw.gameWindow(global, true);
+                break;
+            default:
+                System.out.println("Invalid arg for 'pushTo");
         }
     }
 }

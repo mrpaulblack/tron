@@ -28,7 +28,7 @@ public class Inputs {
                 "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
 
         input.textProperty().addListener((observable, oldValue, newValue) -> {
-            System.out.println("Check Text in '" + name + "' New Value '" + newValue + "'");
+           // System.out.println("Check Text in '" + name + "' New Value '" + newValue + "'");
             value = newValue;
         });
 
