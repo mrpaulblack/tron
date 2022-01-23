@@ -16,8 +16,207 @@ import java.util.UUID;
 public class TestPlayer {
 
     //Test setStartDirection
+    @Test
+    public void testSetStartDirection1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionX[0] = 0;
+        testPlayer.setStartDirection(100);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('E', fV);
+    }
+    @Test
+    public void testSetStartDirection2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionX[0] = 100;
+        testPlayer.setStartDirection(100);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('W', fV);
+    }
+    @Test
+    public void testSetStartDirection3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionY[0] = 0;
+        testPlayer.positionX[0] = 5;
+        testPlayer.setStartDirection(100);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('S', fV);
+    }
+    @Test
+    public void testSetStartDirection4() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionY[0] = 100;
+        testPlayer.positionX[0] = 5;
+        testPlayer.setStartDirection(100);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('N', fV);
+    }
+
+    //Test changeDirection
+    @Test
+    public void testChangeDirection1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'E'
+        testPlayer.positionX[0] = 0;
+        testPlayer.setStartDirection(100);
+
+        testPlayer.changeDirection(0);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('E', fV);
+    }
+    @Test
+    public void testChangeDirection2() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'E'
+        testPlayer.positionX[0] = 0;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(1);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('N', fV);
+    }
+    @Test
+    public void testChangeDirection3() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'E'
+        testPlayer.positionX[0] = 0;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(2);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('S', fV);
+    }
+    @Test
+    public void testChangeDirection4() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'W'
+        testPlayer.positionX[0] = 100;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(1);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('S', fV);
+    }
+    @Test
+    public void testChangeDirection5() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'W'
+        testPlayer.positionX[0] = 100;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(2);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('N', fV);
+    }
+    @Test
+    public void testChangeDirection6() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'S'
+        testPlayer.positionX[0] = 5;
+        testPlayer.positionY[0] = 0;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(1);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('E', fV);
+    }
+    @Test
+    public void testChangeDirection7() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'S'
+        testPlayer.positionX[0] = 5;
+        testPlayer.positionY[0] = 0;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(2);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('W', fV);
+    }
+    @Test
+    public void testChangeDirection8() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'N'
+        testPlayer.positionY[0] = 100;
+        testPlayer.positionX[0] = 5;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(1);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('W', fV);
+    }
+    @Test
+    public void testChangeDirection9() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        //set direction to 'N'
+        testPlayer.positionY[0] = 100;
+        testPlayer.positionX[0] = 5;
+        testPlayer.setStartDirection(100);
+        
+        testPlayer.changeDirection(2);
+
+        Field pF= Player.class.getDeclaredField("direction");
+        pF.setAccessible(true);
+        char fV = (char) pF.get(testPlayer);
+
+        assertEquals('E', fV);
+    }
 
     //Test getDirection
+    @Test
+    public void testgetDirection1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionX[0] = 0;
+        testPlayer.setStartDirection(100);
+
+        assertEquals('E', testPlayer.getDirection());
+    }
 
     //Test setReadyPLayer
     @Test
@@ -253,9 +452,22 @@ public class TestPlayer {
     //Test move
     
     //Test getPositionX
+    @Test
+    public void testgetPositionX(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionX[4] = 10;
+
+        assertEquals(10, testPlayer.getPositionX(4), 0);
+    }
     
     //Test getPositionY
+    @Test
+    public void testgetPositionY(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.positionY[4] = 10;
 
+        assertEquals(10, testPlayer.getPositionY(4), 0);
+    }
 
 
 }
