@@ -7,7 +7,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
+import com.github.mrpaulblack.tron.assets.GameSettings;
 import com.github.mrpaulblack.tron.assets.ShowPlayerStats;
+
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -51,8 +53,6 @@ public class StoreWindow {
     }
 
     public static void refreshStore(Store store) {
-        System.out.println("STORE REPRINT");
-        System.out.println(store.getcurrentSessionID());
 
         gridToShow.getChildren().clear();
 
@@ -87,5 +87,22 @@ public class StoreWindow {
                 store.getotherPlayerReady() };
         gridToShow.add(new Label("OTHERDATA"), 4, 0, 2, 1);
         gridToShow.add(ShowPlayerStats.showOther(DUMMYDATA), 4, 1, 1, 1);
+
+        gridToShow.add(new Label("GAMESETTINGS"), 6, 0, 2, 1);
+
+        gridToShow.add(GameSettings.displaySettings(store.getSettings(), false), 6, 1, 1, 1);
+
+        GridPane settingsGrid = new GridPane();
+
+        String[][] settnames = store.getSettings();
+        String[] settvalues = Store.getGameSetup();
+
+        if (settnames.length > 1) {
+            for (Integer i = 0; i < settnames.length; i++) {
+                settingsGrid.add(new Label(settnames[i][0]), 0, i, 1, 1);
+                settingsGrid.add(new Label(settvalues[i]), 1, i, 1, 1);
+            }
+        }
+        gridToShow.add(settingsGrid, 4, 10, 2, 1);
     }
 }

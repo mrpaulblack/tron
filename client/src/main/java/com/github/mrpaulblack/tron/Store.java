@@ -12,6 +12,8 @@ public class Store {
     private String[] otherPlayerName = {};
     private String[] otherPlayerColor = {};
     private String[] otherPlayerReady = {};
+    private static String[][] settings = { {} };
+    private static String[] gameSetup = {};
 
     /*
      * private String[] otherPlayerName = { dummyDataFabric("name"),
@@ -128,6 +130,30 @@ public class Store {
         return otherPlayerReady;
     }
 
+    // ___AVALSETTINGS___
+    public void setSettings(String[][] value) {
+        settings = value;
+
+        if (gameSetup.length == 0) {
+            gameSetup = new String[value.length];
+        }
+        CreateGameSession.reprintData();
+        StoreWindow.refreshStore(this);
+    }
+
+    public String[][] getSettings() {
+        return settings;
+    }
+
+    // ___GAMESETUP___
+    public static void setGameSetup(String[] value) {
+        gameSetup = value;
+    }
+
+    public static String[] getGameSetup() {
+        return gameSetup;
+    }
+
     // ___ALL___
     public String[] getEverything() {
         System.out.println("__STATE__");
@@ -136,10 +162,12 @@ public class Store {
         for (String string : arr) {
             System.out.println(string);
         }
-
-        System.out.println(arr);
         StoreWindow.refreshStore(this);
         return arr;
+    }
+
+    public void reprintStoreWindow() {
+        StoreWindow.refreshStore(this);
     }
 
     // DEBUG
@@ -160,6 +188,22 @@ public class Store {
                 String[] isReadyarr = { "true", "false" };
                 int isReadyrandom = rand.nextInt(isReadyarr.length);
                 return isReadyarr[isReadyrandom];
+            case "settingname":
+                String[] settingnamearr = { "Borderkollison", "Color", "Player", "Number", "isTrue", "isFalse" };
+                int settingnamerandom = rand.nextInt(settingnamearr.length);
+                return settingnamearr[settingnamerandom];
+            case "type":
+                String[] typearr = { "Boolean", "String", "Int" };
+                int typerandom = rand.nextInt(typearr.length);
+                return typearr[typerandom];
+            case "min":
+                String[] minarr = { "1", "2", "4", "7" };
+                int minrandom = rand.nextInt(minarr.length);
+                return minarr[minrandom];
+            case "max":
+                String[] maxarr = { "9", "10", "12", "20" };
+                int maxrandom = rand.nextInt(maxarr.length);
+                return maxarr[maxrandom];
         }
         System.out.println("param for dummyDataFabric does not exits");
         return "error";
