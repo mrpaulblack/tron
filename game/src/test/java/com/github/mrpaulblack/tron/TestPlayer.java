@@ -185,7 +185,8 @@ public class TestPlayer {
     @Test
     public void testgetTailLenght() {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
-        assertEquals(100, testPlayer.getTailLenght(), 0);
+        Integer t = 100;
+        assertEquals(t-1, testPlayer.getTailLenght(), 0);
     }
     
     //Test setColor
