@@ -1,5 +1,5 @@
 package com.github.mrpaulblack.tron;
-
+import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -18,14 +18,15 @@ public class Player{
     private String name;
     private String clientName;
     private Float clientVersion;
-    private UUID playerID;
+    private UUID playerID;      //müsste eigentlich raus, wenn ich sie als Identifier für die Hashmap im Game nutze
     private Integer tailLenght = 1;
-    protected int[] positionX = new int [tailLenght];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected int[] positionY = new int [tailLenght];
+    protected Integer[] positionX = new Integer [tailLenght];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
+    protected Integer[] positionY = new Integer [tailLenght];
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
     private char direction;
+    
 
     /**
 	 * <h1><i>Player</i></h1>
@@ -33,7 +34,7 @@ public class Player{
 	 * @param clientName - String with the name of the client
 	 * @param clientVersion - Float with the version of the client
      * @param playerID - Main identifier for each player. 
-     * @param tailLenght - Lenght of the player, used for the movement arrays.
+     * @param tailLenght - Lenght of the player, used for the movement arrays. Must be subtracted by 1 so that the position arrays have the right lenght.
 	 */
     public Player(String clientName, Float clientVersion, UUID playerID, Integer tailLenght){
         this.clientName = clientName;
@@ -65,8 +66,8 @@ public class Player{
 
     /**
 	 * <h1><i>changeDirection</i></h1>
-	 * <p>Method to change the direction relative to the current direction. </p>
-	 * @param fieldSize - integer that indicates a directional change or not, communicated from client. 0 = no change1 = left turn | 2 = right turn
+	 * <p>Method to change the direction relative to the current direction.</p>
+	 * @param fieldSize - integer that indicates a directional change or not, communicated from client. 0 = no change | 1 = left turn | 2 = right turn
 	 */
     public void changeDirection(int newDirection){
         if (newDirection == 0){}
@@ -116,6 +117,7 @@ public class Player{
         this.ready = true;
         this.name = name;
         this.color = color;
+        //playerCount++
     }
 
     /**
@@ -128,6 +130,7 @@ public class Player{
         this.ready = false;
         this.name = "";
         this.color = PlayerColor.UNDEFINED;
+        //playerCount--
     }
 
     /**
@@ -280,27 +283,35 @@ public class Player{
 	 * <h1><i>move</i></h1>
 	 * <p>This method executes one move and changes the positions in the movement arrays.</p>
 	 */
+
+    
     protected void move(){
-        for(int i = tailLenght; i>0; i--){
-            positionX[i] = positionX[i-1];
-            positionX[i] = positionX[i-1];
+        if (alive == true){
+            for(int i = tailLenght; i>0; i--){
+                positionX[i] = positionX[i-1];
+                positionX[i] = positionX[i-1];
+            }
+            switch(direction){
+                case 'N':
+                positionY[0] = positionY[0]-1;
+                break;
+    
+                case 'E':
+                positionX[0] = positionX[0]+1;
+                break;
+    
+                case 'S':
+                positionY[0] = positionY[0]+1;
+                break;
+    
+                case 'W':
+                positionX[0] = positionX[0]-1;
+                break;
+            }
         }
-        switch(direction){
-            case 'N':
-            positionY[0] = positionY[0]-1;
-            break;
-
-            case 'E':
-            positionX[0] = positionX[0]+1;
-            break;
-
-            case 'S':
-            positionY[0] = positionY[0]+1;
-            break;
-
-            case 'W':
-            positionX[0] = positionX[0]-1;
-            break;
+        else{
+            Arrays.fill(positionX, null);
+            Arrays.fill(positionY, null);
         }
     }
 
@@ -328,7 +339,13 @@ public class Player{
             return positionY[requestedPositionY];
         }
         else{
-            return -1;
+            return null;
         }
+    }
+
+    protected void setPositionXY(int[] newPosition){
+        
+        positionX[0] = newPosition[0];
+        positionY[0] = newPosition[1];
     }
 }

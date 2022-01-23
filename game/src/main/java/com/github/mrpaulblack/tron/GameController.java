@@ -1,5 +1,7 @@
 package com.github.mrpaulblack.tron;
 
+import java.util.UUID;
+
 import org.json.*;
 
 public interface GameController {
@@ -44,5 +46,10 @@ public interface GameController {
     }
 
     public boolean setSettings(JSONObject settings);
+    public void register(UUID playerID, String clientName, Float clientVersion);
+    public void ready(UUID playerID, PlayerColor color, String playerName);
+    public void unready(UUID playerID);
+    public void disconnect(UUID playerID);
+    public void executeMove(UUID playerID, int moveChange);
     
 }
