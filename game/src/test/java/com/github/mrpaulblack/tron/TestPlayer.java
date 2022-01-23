@@ -111,7 +111,7 @@ public class TestPlayer {
     @Test
     public void testsetClientName() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
-        testPlayer.setclientName("newName");
+        testPlayer.setClientName("newName");
 
         Field pF= Player.class.getDeclaredField("clientName");
         pF.setAccessible(true);
