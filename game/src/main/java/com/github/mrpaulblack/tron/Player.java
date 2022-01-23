@@ -20,8 +20,8 @@ public class Player{
     private Float clientVersion;
     private UUID playerID;
     private Integer tailLenght = 1;
-    protected int[] positionX = new int [tailLenght];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected int[] positionY = new int [tailLenght];
+    protected int[] positionX;   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
+    protected int[] positionY;
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
@@ -39,6 +39,8 @@ public class Player{
         this.clientName = clientName;
         this.clientVersion = clientVersion;
         this.tailLenght = tailLenght- 1;
+        this.positionX = new int [tailLenght];
+        this.positionY = new int [tailLenght];
         this.playerID = playerID;
     }
 
@@ -49,16 +51,16 @@ public class Player{
 	 */
     public void setStartDirection(int fieldSize){
         if(positionX[0] == 0){
-            direction = 'S';
-        }
-        else if(positionX[0] == fieldSize){
-            direction = 'N';
-        }
-        else if(positionY[0] == 0){
             direction = 'E';
         }
-        else if(positionY[0] == fieldSize){
+        else if(positionX[0] == fieldSize){
             direction = 'W';
+        }
+        else if(positionY[0] == 0){
+            direction = 'S';
+        }
+        else if(positionY[0] == fieldSize){
+            direction = 'N';
         }
         else{}
     }
