@@ -8,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class TestGame {
     @Test public void gameHasAGreeting() {
-        Game classUnderTest = new Game();
-        assertNotNull("game should have a greeting", classUnderTest.getGreeting());
+        
     }
 }

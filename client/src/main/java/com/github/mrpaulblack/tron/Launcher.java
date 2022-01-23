@@ -11,12 +11,7 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
-public class Launcher {
-    private Store store;
-
-    public Launcher(Store store) {
-        this.store = store;
-    }
+public class Launcher extends SceneManager {
 
     public void launcher(Stage stage, Boolean isVisible) {
 
@@ -35,21 +30,15 @@ public class Launcher {
                 store.setport(port.getValue());
                 store.setcurrentSessionID(session.getValue());
 
-                System.out.println("Server: " + store.getserver());
-                System.out.println("Port: " + store.getport());
-                System.out.println("Session: " + store.getcurrentSessionID());
-
-                CreateGameSession cgs = new CreateGameSession(store);
-                cgs.createGameSession(stage, true);
+                SceneManager.pushTo("createGame");
             }
         };
-
         Button join = new Button("join");
         join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
         join.setOnAction(buttonHandler);
 
         GridPane gridPane = new GridPane();
-        Scene scene = new Scene(new StackPane(gridPane), 300, 400);
+        Scene scene = new Scene(new StackPane(gridPane));
 
         gridPane.setStyle("-fx-max-width: 500;");
 
@@ -59,8 +48,8 @@ public class Launcher {
         gridPane.add(join, 0, 2, 2, 1);
         gridPane.setStyle("-fx-max-width: 500;");
 
-        stage.setScene(scene);
         if (isVisible) {
+            stage.setScene(scene);
             stage.show();
         }
     }

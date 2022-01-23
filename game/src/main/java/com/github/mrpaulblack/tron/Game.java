@@ -3,17 +3,60 @@
  */
 package com.github.mrpaulblack.tron;
 
+import java.util.HashMap;
+import java.util.UUID;
+
 import org.json.JSONObject;
 
 public class Game implements GameController {
-    public String getGreeting() {
-        return "Hello World from UPD Test Server!";
+
+    private Integer boardSize;
+    private Integer tailLenght;
+    private Integer playerNumber;
+    private Integer cellSize;
+    private Player[] user;
+    private CollisionDetection colliDetect;
+    
+
+    private HashMap <UUID, Player> participants =  new HashMap<UUID, Player>();
+
+
+    public Game (Integer boardSize, Integer tailSize, Integer playerNumber, Integer cellSize){
+        this.boardSize = boardSize;
+        this.tailLenght = tailLenght;
+        this.playerNumber = playerNumber;
+        this.cellSize = cellSize;
+        colliDetect = new CollisionDetection();
+        
+        //board.getStartPosi(UUID.randomUUID(), boardSize, participants.get(UUID.randomUUID())); <-- als Vorlage für Übergeben/Erstellen
+    }
+    //register + ready + unready
+
+    public void register(UUID playerID, String clientName, Float clientVersion){
+        participants.put(playerID, new Player(clientName, clientVersion, playerID, tailLenght));
+        
     }
 
-    public static void main(String[] args) {
-        System.out.println(new Game().getGreeting());
+    public void executeMove(UUID player, int moveChange){
+        participants.get(player).move();
+        colliDetect.CollisionChecker(participants.get(player));
     }
 
+    public void ready(UUID playerID, PlayerColor color, String playerName){
+        participants.get(playerID).setReadyPlayer(playerName, color);
+    
+    }
+
+    public void unready(UUID playerID){
+        participants.get(playerID).setUnreadyPlayer();
+
+    }
+
+    public void disconnect(UUID playerID){
+        //unterscheidung ob in Spec mode oder kick
+        //remove
+    }
+    
     @Override
     public boolean setSettings(JSONObject settings) {
         // TODO Auto-generated method stub
