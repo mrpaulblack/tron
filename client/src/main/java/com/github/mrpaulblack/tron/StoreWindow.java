@@ -6,6 +6,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
+
+import com.github.mrpaulblack.tron.assets.ShowPlayerStats;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -29,6 +32,7 @@ public class StoreWindow {
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 refreshStore(store);
+                GameReadyScreen.reprintData();
             }
         };
 
@@ -47,9 +51,12 @@ public class StoreWindow {
     }
 
     public static void refreshStore(Store store) {
+        System.out.println("STORE REPRINT");
         System.out.println(store.getcurrentSessionID());
 
         gridToShow.getChildren().clear();
+
+        GridPane innerGrid = new GridPane();
 
         sessionID.setText(store.getcurrentSessionID());
         server.setText(store.getserver());
@@ -57,17 +64,28 @@ public class StoreWindow {
         chosenName.setText(store.getchosenName());
         chosenColor.setText(store.getchosenColor());
 
-        gridToShow.add(new Label("sessionID"), 0, 0, 1, 1);
-        gridToShow.add(new Label("server"), 0, 1, 1, 1);
-        gridToShow.add(new Label("port"), 0, 2, 1, 1);
-        gridToShow.add(new Label("chosenName"), 0, 3, 1, 1);
-        gridToShow.add(new Label("chosenColor"), 0, 4, 1, 1);
+        gridToShow.add(new Label("PLAYERDATA"), 0, 0, 2, 1);
+        gridToShow.add(new Label("OTHERDATA"), 4, 0, 2, 1);
 
-        gridToShow.add(sessionID, 1, 0, 1, 1);
-        gridToShow.add(server, 1, 1, 1, 1);
-        gridToShow.add(port, 1, 2, 1, 1);
-        gridToShow.add(chosenName, 1, 3, 1, 1);
-        gridToShow.add(chosenColor, 1, 4, 1, 1);
-        gridToShow.add(refresh, 0, 99, 1, 1);
+        innerGrid.add(new Label("sessionID "), 0, 1, 1, 1);
+        innerGrid.add(new Label("server "), 0, 2, 1, 1);
+        innerGrid.add(new Label("port "), 0, 3, 1, 1);
+        innerGrid.add(new Label("chosenName "), 0, 4, 1, 1);
+        innerGrid.add(new Label("chosenColor "), 0, 5, 1, 1);
+
+        innerGrid.add(sessionID, 1, 1, 1, 1);
+        innerGrid.add(server, 1, 2, 1, 1);
+        innerGrid.add(port, 1, 3, 1, 1);
+        innerGrid.add(chosenName, 1, 4, 1, 1);
+        innerGrid.add(chosenColor, 1, 5, 1, 1);
+        innerGrid.add(refresh, 0, 99, 1, 1);
+        innerGrid.setStyle(
+                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+
+        gridToShow.add(innerGrid, 0, 1, 1, 1);
+        String[][] DUMMYDATA = { store.getotherPlayerColor(), store.getotherPlayerName(),
+                store.getotherPlayerReady() };
+        gridToShow.add(new Label("OTHERDATA"), 4, 0, 2, 1);
+        gridToShow.add(ShowPlayerStats.showOther(DUMMYDATA), 4, 1, 1, 1);
     }
 }
