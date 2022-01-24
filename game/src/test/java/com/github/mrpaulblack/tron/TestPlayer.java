@@ -385,7 +385,7 @@ public class TestPlayer {
     public void testgetTailLenght() {
         Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
         Integer t = 100;
-        assertEquals(t-1, testPlayer.getTailLenght(), 0);
+        assertEquals(t, testPlayer.getTailLenght(), 0);
     }
     
     //Test setColor
@@ -526,6 +526,36 @@ public class TestPlayer {
         testPlayer.setPositionXY(n);
         
         assertEquals(10, testPlayer.positionY[0], 0);
+    }
+
+    //Test EliminatePlayer
+    @Test
+    public void testEliminatePlayer1(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.eliminatePlayer();
+
+        assertEquals(-1, testPlayer.positionX[3], 0);
+    }
+    @Test
+    public void testEliminatePlayer2(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.eliminatePlayer();
+
+        assertNull(testPlayer.positionX[0]);
+    }
+    @Test
+    public void testEliminatePlayer3(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.eliminatePlayer();
+
+        assertEquals(-1, testPlayer.positionY[99], 0);
+    }
+    @Test
+    public void testEliminatePlayer4(){
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
+        testPlayer.eliminatePlayer();
+
+        assertNull(testPlayer.positionY[0]);
     }
 
 }
