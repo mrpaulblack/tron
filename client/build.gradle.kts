@@ -26,7 +26,8 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
 
     // This dependency is used by the application.
-    implementation("com.google.guava:guava:30.1.1-jre")
+    implementation("org.json:json:20211205")
+    implementation(project(":game"))
 }
 
 application {
