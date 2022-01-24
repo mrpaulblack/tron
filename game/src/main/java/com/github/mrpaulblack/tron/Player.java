@@ -20,8 +20,8 @@ public class Player{
     private Float clientVersion;
     private UUID playerID;      //müsste eigentlich raus, wenn ich sie als Identifier für die Hashmap im Game nutze
     private Integer tailLenght = 1;
-    protected Integer[] positionX = new Integer [tailLenght];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected Integer[] positionY = new Integer [tailLenght];
+    protected Integer[] positionX;   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
+    protected Integer[] positionY;
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
@@ -41,6 +41,8 @@ public class Player{
         this.clientVersion = clientVersion;
         this.tailLenght = tailLenght- 1;
         this.playerID = playerID;
+        positionX = new Integer [tailLenght]; 
+        positionY = new Integer [tailLenght];
     }
 
     /**
@@ -50,16 +52,16 @@ public class Player{
 	 */
     public void setStartDirection(int fieldSize){
         if(positionX[0] == 0){
-            direction = 'S';
-        }
-        else if(positionX[0] == fieldSize){
-            direction = 'N';
-        }
-        else if(positionY[0] == 0){
             direction = 'E';
         }
-        else if(positionY[0] == fieldSize){
+        else if(positionX[0] == fieldSize){
             direction = 'W';
+        }
+        else if(positionY[0] == 0){
+            direction = 'S';
+        }
+        else if(positionY[0] == fieldSize){
+            direction = 'N';
         }
         else{}
     }
@@ -283,13 +285,11 @@ public class Player{
 	 * <h1><i>move</i></h1>
 	 * <p>This method executes one move and changes the positions in the movement arrays.</p>
 	 */
-
-    
     protected void move(){
         if (alive == true){
             for(int i = tailLenght; i>0; i--){
                 positionX[i] = positionX[i-1];
-                positionX[i] = positionX[i-1];
+                positionY[i] = positionY[i-1];
             }
             switch(direction){
                 case 'N':
