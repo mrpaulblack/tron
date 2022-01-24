@@ -42,8 +42,8 @@ public class GameSettings {
 
                 Label settname = new Label(set[i][0] + "    ");
                 Label setttype = new Label(set[i][1] + "    ");
-                Label settmin = new Label(set[i][2] + "    ");
-                Label settmax = new Label(set[i][3] + "    ");
+                Label settmin = new Label(set[i][2] + "     ");
+                Label settmax = new Label(set[i][3] + "     ");
 
                 GridPane.setHalignment(settname, HPos.CENTER);
                 GridPane.setHalignment(setttype, HPos.CENTER);
@@ -61,8 +61,10 @@ public class GameSettings {
                         stringI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         stringI.textProperty().addListener((observable, oldValue, newValue) -> {
                             String[] setup = Store.getGameSetup();
-                            setup[thanksJavaForThisShit] = stringI.getText();
-                            Store.setGameSetup(setup);
+                            if (newValue.length() != 0) {
+                                setup[thanksJavaForThisShit] = stringI.getText();
+                                Store.setGameSetup(setup);
+                            }
                         });
                         if (showUserInput) {
                             innergrid.add(stringI, 0, 1, 2, 1);
@@ -76,9 +78,20 @@ public class GameSettings {
                             if (!newValue.matches("\\d*")) {
                                 numberI.setText(newValue.replaceAll("[^\\d]", ""));
                             }
-                            String[] setup = Store.getGameSetup();
-                            setup[thanksJavaForThisShit] = numberI.getText();
-                            Store.setGameSetup(setup);
+                            if (newValue.length() != 0) {
+
+                                if ((Integer.parseInt(set[thanksJavaForThisShit][2]) <= Integer.parseInt(newValue) && Integer.parseInt(set[thanksJavaForThisShit][3]) >= Integer.parseInt(newValue))) {
+
+                                    String[] setup = Store.getGameSetup();
+                                    setup[thanksJavaForThisShit] = numberI.getText();
+                                    Store.setGameSetup(setup);
+                                }
+                                else  {
+                                    String[] setup = Store.getGameSetup();
+                                    setup[thanksJavaForThisShit] = String.valueOf((Integer.parseInt(set[thanksJavaForThisShit][2])+(Integer.parseInt(set[thanksJavaForThisShit][3])/2)));
+                                    Store.setGameSetup(setup);
+                                }
+                            }
                         });
                         if (showUserInput) {
                             innergrid.add(numberI, 0, 1, 2, 1);
