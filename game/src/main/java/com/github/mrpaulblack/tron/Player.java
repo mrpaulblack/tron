@@ -70,7 +70,7 @@ public class Player{
     /**
 	 * <h1><i>changeDirection</i></h1>
 	 * <p>Method to change the direction relative to the current direction.</p>
-	 * @param fieldSize - integer that indicates a directional change or not, communicated from client. 0 = no change | 1 = left turn | 2 = right turn
+	 * @param newDirection - integer that indicates a directional change or not, communicated from client. 0 = no change | 1 = left turn | 2 = right turn
 	 */
     public void changeDirection(int newDirection){
         if (newDirection == 0){}
@@ -126,8 +126,6 @@ public class Player{
     /**
 	 * <h1><i>setUnReadyPlayer</i></h1>
 	 * <p>Method to set the Ready Status as well as clearing name and color as the last two can be changed by each player.</p>
-	 * @param name - String to be set as the chosen name by eahc player.
-	 * @param color - ENUM PlayerColor to set the Color for each player.
 	 */
     protected void setUnreadyPlayer(){
         this.ready = false;
@@ -175,7 +173,7 @@ public class Player{
     /**
 	* <h1><i>setClientVersion</i></h1>
 	* <p>Sets player clientVersion.</p>
-	* @param clientName - Float as ClientVersion of the player.
+	* @param clientVersion - Float as ClientVersion of the player.
 	*/
     protected void setClientVersion(Float clientVersion){
         this.clientVersion = clientVersion;
