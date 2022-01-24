@@ -2,6 +2,7 @@
 package com.github.mrpaulblack.tron;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -47,6 +48,21 @@ public class GameWindow extends SceneManager {
             }
 
         });
+
+        int xPixel = 40;
+        int yPixel = 40;
+
+        for (int i = 0; i < xPixel; i++) {
+            for (int j = 0; j < yPixel; j++) {
+                Button PIXEL = new Button("");
+                PIXEL.setStyle("-fx-min-width: 15; -fx-max-width: 15; -fx-min-height: 15; -fx-max-height: 15;");
+                gridPane.setFillWidth(PIXEL, true);
+                gridPane.setFillHeight(PIXEL, true);
+                gridPane.add(PIXEL, i, j, 1, 1);
+                gridPane.setStyle(
+                        "-fx-padding: 10; -fx-border-radius: 20; min-width: 200;-fx-pref-width: 9999;");
+            }
+        }
 
         if (isVisible) {
             stage.setScene(scene);
