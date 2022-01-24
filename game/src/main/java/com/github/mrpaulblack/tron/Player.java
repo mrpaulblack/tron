@@ -19,9 +19,10 @@ public class Player{
     private String clientName;
     private Float clientVersion;
     private UUID playerID;      //müsste eigentlich raus, wenn ich sie als Identifier für die Hashmap im Game nutze
-    private Integer tailLenght = 1;
-    protected Integer[] positionX;   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected Integer[] positionY;
+
+    private Integer tailLenght;
+    protected Integer[] positionX = new Integer [tailLenght-1];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
+    protected Integer[] positionY = new Integer [tailLenght-1];
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
@@ -309,10 +310,7 @@ public class Player{
                 break;
             }
         }
-        else{
-            Arrays.fill(positionX, null);
-            Arrays.fill(positionY, null);
-        }
+        else{}
     }
 
     /**
@@ -347,5 +345,15 @@ public class Player{
         
         positionX[0] = newPosition[0];
         positionY[0] = newPosition[1];
+    }
+
+    protected void eliminatePlayer(){
+        this.alive = false;
+        positionX[0] = null;
+        positionY[0] = null;
+        for(int i = 1; i < tailLenght; i++){
+            positionX[i] = -1;
+            positionY[i] = -1;
+        }
     }
 }

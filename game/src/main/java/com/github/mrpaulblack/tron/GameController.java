@@ -47,9 +47,16 @@ public interface GameController {
 
     public boolean setSettings(JSONObject settings);
     public void register(UUID playerID, String clientName, Float clientVersion);
-    public void ready(UUID playerID, PlayerColor color, String playerName);
+    public boolean ready(UUID playerID, PlayerColor color, String playerName);
     public void unready(UUID playerID);
     public void disconnect(UUID playerID);
     public void executeMove(UUID playerID, int moveChange);
+    public PlayerColor colorCheck(PlayerColor color);
+    public void CollisionCheckerWall();
+    public void CollisionCheckerTail();
+    public void CollisionCheckerFrontal();
+    public void collectTailPositions();
+    public void collectHeadPositions();
+    public void clearObstacleArrays();
     
 }

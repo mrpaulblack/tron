@@ -3,8 +3,13 @@
  */
 package com.github.mrpaulblack.tron;
 
+
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.Map.Entry;
 
 import org.json.JSONObject;
 
@@ -15,51 +20,168 @@ public class Game implements GameController {
     private Integer playerNumber;
     private Integer cellSize;
     private Player[] user;
-    private CollisionDetection colliDetect;
+    private HashMap <UUID, PlayerColor> colorToID = new HashMap<UUID, PlayerColor>();
+    private GameState gameState;
+    int driverHeadX;
+    int driverHeadY;
+    private List<Integer> obstaclePositionsX = new ArrayList<Integer>();
+    private List<Integer> obstaclePositionsY = new ArrayList<Integer>();
+    
+
+    //hashmap für ready player und UUID
+    
     
 
     private HashMap <UUID, Player> participants =  new HashMap<UUID, Player>();
 
 
-    public Game (Integer boardSize, Integer tailSize, Integer playerNumber, Integer cellSize){
+    public Game (Integer boardSize, Integer tailLenght, Integer playerNumber, Integer cellSize){
         this.boardSize = boardSize;
         this.tailLenght = tailLenght;
         this.playerNumber = playerNumber;
         this.cellSize = cellSize;
-        colliDetect = new CollisionDetection();
+        this.gameState = GameState.SETTINGUP;
+        
         
         //board.getStartPosi(UUID.randomUUID(), boardSize, participants.get(UUID.randomUUID())); <-- als Vorlage für Übergeben/Erstellen
     }
-    //register + ready + unready
 
+    
+    @Override
     public void register(UUID playerID, String clientName, Float clientVersion){
-        participants.put(playerID, new Player(clientName, clientVersion, playerID, tailLenght));
-        
+        participants.put(playerID, new Player(clientName, clientVersion, playerID, tailLenght));        
     }
 
+    @Override
     public void executeMove(UUID player, int moveChange){
         participants.get(player).move();
-        colliDetect.CollisionChecker(participants.get(player));
+        //colliDetect.CollisionChecker(participants.get(player));   <-- wird noch ergänzt um 2 weitere Typen von Collision
     }
 
-    public void ready(UUID playerID, PlayerColor color, String playerName){
+    @Override
+    public PlayerColor colorCheck(PlayerColor color){
+        
+        if(colorToID.containsValue(color)){
+            return PlayerColor.UNDEFINED;
+        };
+        return color;
+    }
+
+    @Override
+    public boolean ready(UUID playerID, PlayerColor color, String playerName){
+        int readyCount = 0;        
         participants.get(playerID).setReadyPlayer(playerName, color);
-    
+        colorToID.put(playerID, color);
+        
+        for (Entry <UUID, Player>clientEntry: participants.entrySet()){
+            if(clientEntry.getValue().getReady()){
+                readyCount++;
+            }
+        }
+
+        if(readyCount == playerNumber){
+            Collection<Player> values = participants.values();
+            user = values.toArray(new Player[0]);
+            gameState = GameState.RUNNING;
+            return true;
+        }
+        else{return false;}
     }
 
+    @Override
     public void unready(UUID playerID){
+        colorToID.remove(playerID);        
         participants.get(playerID).setUnreadyPlayer();
-
     }
 
+    @Override
     public void disconnect(UUID playerID){
-        //unterscheidung ob in Spec mode oder kick
-        //remove
+ 
+        if(gameState == GameState.SETTINGUP){
+            colorToID.remove(playerID);
+            participants.remove(playerID);
+        }
+        else{
+            participants.get(playerID).setAlive(false);
+        }
+    }
+    
+    public GameState endGame(){
+        int aliveCounter = 0;
+        for (int i = 0; i < playerNumber; i++){
+            if(user[i].getAlive() == true){
+                aliveCounter++;
+            }
+        }
+        if(aliveCounter < 2){
+            return GameState.FINISHED;
+        }
+        else{return GameState.RUNNING;}     
     }
     
     @Override
     public boolean setSettings(JSONObject settings) {
         // TODO Auto-generated method stub
         return false;
+    }
+
+    @Override
+    public void CollisionCheckerWall (){
+        
+        for (int i = 0; i < playerNumber; i++){
+            setDriverHeads(i);
+            if((driverHeadX < 0) || (driverHeadX > (boardSize-1))){
+                user[i].eliminatePlayer();
+            }
+            else if ((driverHeadY < 0) || (driverHeadY > (boardSize-1))){
+                user[i].eliminatePlayer();
+            }
+            else{}
+        }
+        clearObstacleArrays();          
+    }
+
+    public void CollisionCheckerTail (){
+    }
+
+    @Override
+    public void CollisionCheckerFrontal (){
+        collectHeadPositions();
+
+        for(int checkfor = 0; checkfor < playerNumber; checkfor++){
+            for (int others = 1; others < playerNumber; others++){
+                if ((obstaclePositionsX.get(checkfor) == obstaclePositionsX.get(others)) && obstaclePositionsY.get(checkfor) == obstaclePositionsY.get(others)){
+                    user[checkfor].eliminatePlayer();
+                    user[others].eliminatePlayer();
+                }
+            }
+        }
+        clearObstacleArrays();
+    }
+
+    public void setDriverHeads(int userNumber){
+        driverHeadX = user[userNumber].positionX[0];
+        driverHeadY = user[userNumber].positionY[0];
+    }
+
+    public void collectTailPositions(){
+        for (int i = 0; i < playerNumber; i++){
+            for(int k = 1; k < tailLenght; k++){
+                obstaclePositionsX.add(user[i].positionX[k]);
+                obstaclePositionsY.add(user[i].positionY[k]);
+            }
+        }
+    }
+
+    public void clearObstacleArrays(){
+        obstaclePositionsX.clear();
+        obstaclePositionsY.clear();
+    }
+
+    public void collectHeadPositions(){
+        for(int i = 0; i < playerNumber; i++){
+            obstaclePositionsX.add(user[i].positionX[0]);
+            obstaclePositionsY.add(user[i].positionY[0]);
+        }
     }
 }
