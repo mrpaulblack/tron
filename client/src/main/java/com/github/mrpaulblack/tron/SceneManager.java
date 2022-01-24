@@ -11,14 +11,15 @@ public class SceneManager {
     static CreateGameSession cgs = new CreateGameSession();
     static GameReadyScreen grs = new GameReadyScreen();
     static GameWindow gw = new GameWindow();
+    static ErrorScreen es = new ErrorScreen();
 
     public void showDebugWindow() {
         // Debug Window for Store
-        if ((LogController.getGlobalLogLvl() == Log.DEBUG) || LogController.getGlobalLogLvl() == Log.TRACE) {
+        if (((LogController.getGlobalLogLvl() == Log.DEBUG) || LogController.getGlobalLogLvl() == Log.TRACE)) {
             Stage secondStage = new Stage();
-            StoreWindow sw = new StoreWindow();
-            sw.showStore(secondStage, store);
-            LogController.log(Log.TRACE, "{ " + "Open Store DebugWindow" + " } ");
+             StoreWindow sw = new StoreWindow();
+             sw.showStore(secondStage, store);
+            // LogController.log(Log.TRACE, "{ " + "Open Store DebugWindow" + " } ");
         }
     }
 
@@ -38,6 +39,7 @@ public class SceneManager {
         cgs.createGameSession(global, false);
         grs.gameReadyScreen(global, false);
         gw.gameWindow(global, false);
+        es.show(global, false);
 
         LogController.log(Log.TRACE, "{ " + "Try to set Scene " + pushto + " } ");
         switch (pushto) {
@@ -54,6 +56,7 @@ public class SceneManager {
                 gw.gameWindow(global, true);
                 break;
             default:
+                es.show(global, true);
         }
     }
 }

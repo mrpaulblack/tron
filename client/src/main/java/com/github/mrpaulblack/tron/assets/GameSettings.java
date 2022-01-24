@@ -9,9 +9,9 @@ import javafx.geometry.HPos;
 
 public class GameSettings {
     public static Node displaySettings(String[][] set, boolean showUserInput) {
-
+        
         GridPane grid = new GridPane();
-
+        
         if (set.length > 1) {
 
             Label name = new Label("Name   ");
@@ -34,7 +34,9 @@ public class GameSettings {
             GridPane.setHalignment(min, HPos.CENTER);
             GridPane.setHalignment(max, HPos.CENTER);
 
+
             for (int i = 0; i < set.length; i++) {
+
 
                 final Integer thanksJavaForThisShit = i;
 
@@ -56,7 +58,7 @@ public class GameSettings {
                 innergrid.add(settmax, 3, 0, 1, 1);
 
                 switch (set[i][1]) {
-                    case "String":
+                    case "string":
                         TextField stringI = new TextField();
                         stringI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         stringI.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -69,7 +71,7 @@ public class GameSettings {
                         }
 
                         break;
-                    case "Int":
+                    case "int":
                         TextField numberI = new TextField();
                         numberI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         numberI.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -84,7 +86,7 @@ public class GameSettings {
                             innergrid.add(numberI, 0, 1, 2, 1);
                         }
                         break;
-                    case "Boolean":
+                    case "boolean":
                         TextField booleanI = new TextField();
                         booleanI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         if (showUserInput) {
@@ -92,7 +94,6 @@ public class GameSettings {
                         }
                         break;
                 }
-
                 innergrid.setStyle(
                         "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
 

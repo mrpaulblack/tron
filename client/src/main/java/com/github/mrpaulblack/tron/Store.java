@@ -19,11 +19,10 @@ public class Store {
     public void setcurrentSessionID(String value) {
         LogController.log(Log.TRACE, "{ " + "Set Session ID: " + value + " } ");
         currentSessionID = value;
-        StoreWindow.refreshStore(this);
     }
 
     public String getcurrentSessionID() {
-        LogController.log(Log.TRACE, "{ " + "Gett Session ID: " + currentSessionID + " } ");
+        LogController.log(Log.TRACE, "{ " + "Get Session ID: " + currentSessionID + " } ");
         return currentSessionID;
     }
 
@@ -31,7 +30,6 @@ public class Store {
     public void setport(String value) {
         LogController.log(Log.TRACE, "{ " + "Set Port: " + value + " } ");
         port = value;
-        StoreWindow.refreshStore(this);
     }
 
     public String getport() {
@@ -43,7 +41,6 @@ public class Store {
     public void setserver(String value) {
         LogController.log(Log.TRACE, "{ " + "Set Server: " + value + " } ");
         server = value;
-        StoreWindow.refreshStore(this);
     }
 
     public String getserver() {
@@ -55,7 +52,6 @@ public class Store {
     public void setchosenName(String value) {
         LogController.log(Log.TRACE, "{ " + "Set Own Name: " + value + " } ");
         chosenName = value;
-        StoreWindow.refreshStore(this);
     }
 
     public String getchosenName() {
@@ -68,7 +64,6 @@ public class Store {
         LogController.log(Log.TRACE, "{ " + "Set Own Color: " + value + " } ");
         chosenColor = value;
         GameReadyScreen.reprintData();
-        StoreWindow.refreshStore(this);
     }
 
     public String getchosenColor() {
@@ -80,7 +75,6 @@ public class Store {
     public void setotherPlayerName(String[] value) {
         otherPlayerName = value;
         GameReadyScreen.reprintData();
-        StoreWindow.refreshStore(this);
     }
 
     public String[] getotherPlayerName() {
@@ -97,7 +91,6 @@ public class Store {
     public void setotherPlayerColor(String[] value) {
         otherPlayerColor = value;
         GameReadyScreen.reprintData();
-        StoreWindow.refreshStore(this);
     }
 
     public String[] getotherPlayerColor() {
@@ -113,7 +106,6 @@ public class Store {
     public void setotherPlayerReady(String[] value) {
         otherPlayerReady = value;
         GameReadyScreen.reprintData();
-        StoreWindow.refreshStore(this);
     }
 
     public String[] getotherPlayerReady() {
@@ -126,14 +118,12 @@ public class Store {
     }
 
     // ___AVALSETTINGS___
-    public void setSettings(String[][] value) {
-        settings = value;
-
+    public void setSettings(String[][] data) {
+        settings = data;
         if (gameSetup.length == 0) {
-            gameSetup = new String[value.length];
+            gameSetup = new String[data.length];
         }
-        CreateGameSession.reprintData();
-        StoreWindow.refreshStore(this);
+        // SceneManager.pushTo("");
     }
 
     public String[][] getSettings() {
@@ -151,13 +141,7 @@ public class Store {
 
     // ___ALL___
     public String[] getEverything() {
-        System.out.println("__STATE__");
         String[] arr = { currentSessionID, port, server };
-
-        for (String string : arr) {
-            System.out.println(string);
-        }
-        StoreWindow.refreshStore(this);
         return arr;
     }
 
@@ -200,7 +184,6 @@ public class Store {
                 int maxrandom = rand.nextInt(maxarr.length);
                 return maxarr[maxrandom];
         }
-        System.out.println("param for dummyDataFabric does not exits");
         return "error";
     }
 }

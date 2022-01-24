@@ -1,5 +1,9 @@
 package com.github.mrpaulblack.tron;
 
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
+
 import com.github.mrpaulblack.tron.assets.Inputs;
 //import com.github.mrpaulblack.tron.assets.Buttons;
 
@@ -20,21 +24,43 @@ public class Launcher extends SceneManager {
         Inputs session = new Inputs();
         // dont wok yet due stupid event handling #thanksjava
         // Buttons join = new Buttons();
-
         // get values
+
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                LogController.log(Log.DEBUG, "{ " + "Join Game with" + " } ");
-                LogController.log(Log.DEBUG, "{ " + "Port   : " + store.getport() + " } ");
-                LogController.log(Log.DEBUG, "{ " + "Server : " + store.getserver() + " } ");
 
                 event.consume();
 
                 store.setserver(server.getValue());
                 store.setport(port.getValue());
                 store.setcurrentSessionID(session.getValue());
+                LogController.log(Log.DEBUG, "{ " + "Join Game with" + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Port   : " + store.getport() + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Server : " + store.getserver() + " } ");
 
-                SceneManager.pushTo("createGame");
+                try {
+                    ClientController cc = new ClientController(Integer.parseInt(store.getport()), store.getserver(),
+                            store);
+
+                    cc.start();
+
+                    try {
+                        cc.sendRegister();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(200);
+                        SceneManager.pushTo("createGame");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        SceneManager.pushTo("");
+                    }
+                } catch (UnknownHostException | SocketException e) {
+                    SceneManager.pushTo("");
+                    e.printStackTrace();
+                }
+
             }
         };
         Button join = new Button("join");

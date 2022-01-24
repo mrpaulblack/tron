@@ -37,7 +37,13 @@ public class CreateGameSession extends SceneManager {
                                 updateLabel(gridPane, session, join);
 
                                 SceneManager.pushTo("gameReadyScreen");
-                                store.reprintStoreWindow();
+                                try {
+                                        ClientController.sendSessionData();
+                                } catch (Exception e) {
+                                        // TODO Auto-generated catch block
+                                        e.printStackTrace();
+                                }
+
                         }
                 };
 
@@ -51,23 +57,25 @@ public class CreateGameSession extends SceneManager {
                 gridPane.setStyle(
                                 "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
 
-                String[][] DUMMY = {
-                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
-                                                store.dummyDataFabric("min"),
-                                                store.dummyDataFabric("max") },
-                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
-                                                store.dummyDataFabric("min"),
-                                                store.dummyDataFabric("max") },
-                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
-                                                store.dummyDataFabric("min"),
-                                                store.dummyDataFabric("max") },
-                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
-                                                store.dummyDataFabric("min"),
-                                                store.dummyDataFabric("max") },
-                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
-                                                store.dummyDataFabric("min"),
-                                                store.dummyDataFabric("max") }, };
-                store.setSettings(DUMMY);
+                /*
+                 * String[][] DUMMY = {
+                 * { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                 * store.dummyDataFabric("min"),
+                 * store.dummyDataFabric("max") },
+                 * { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                 * store.dummyDataFabric("min"),
+                 * store.dummyDataFabric("max") },
+                 * { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                 * store.dummyDataFabric("min"),
+                 * store.dummyDataFabric("max") },
+                 * { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                 * store.dummyDataFabric("min"),
+                 * store.dummyDataFabric("max") },
+                 * { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                 * store.dummyDataFabric("min"),
+                 * store.dummyDataFabric("max") }, };
+                 * store.setSettings(DUMMY);
+                 */
 
                 reprintData();
 
