@@ -62,11 +62,6 @@ public class Launcher extends SceneManager {
                     cc.start();
 
                     try {
-                        cc.sendRegister();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    try {
                         TimeUnit.MILLISECONDS.sleep(300);
                         SceneManager.pushTo("createGame");
                     } catch (InterruptedException e) {
