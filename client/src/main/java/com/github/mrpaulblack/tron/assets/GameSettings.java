@@ -1,38 +1,60 @@
+
 package com.github.mrpaulblack.tron.assets;
 
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.github.mrpaulblack.tron.Store;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 
+/**
+ * <h1>GameSettings</h1>
+ * <p>
+ * Displays the Gamesettings.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class GameSettings {
+
+    /**
+     * <h1><i>Display Settings</i></h1>
+     * <p>
+     * Displays all Settings in a Grid.
+     * </p>
+     * 
+     * @param set           - Settings: should be x[all Setting][var] : 0 = name, 1
+     *                      = type, 2 = min, 3 = max
+     * @param showUserInput - Controlls if the Input should been shown or not
+     */
     public static Node displaySettings(String[][] set, boolean showUserInput) {
 
         GridPane grid = new GridPane();
 
+        Label name = new Label("Name");
+        Label type = new Label("Type");
+        Label min = new Label("Min");
+        Label max = new Label("Max");
+
+        GridPane.setHalignment(name, HPos.CENTER);
+        GridPane.setHalignment(type, HPos.CENTER);
+        GridPane.setHalignment(min, HPos.CENTER);
+        GridPane.setHalignment(max, HPos.CENTER);
+        name.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        type.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        min.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        max.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+
+        grid.add(name, 0, 0, 1, 1);
+        grid.add(type, 1, 0, 1, 1);
+        grid.add(min, 2, 0, 1, 1);
+        grid.add(max, 3, 0, 1, 1);
         if (set.length > 1) {
-
-            Label name = new Label("Name   ");
-            Label type = new Label("Type   ");
-            Label min = new Label("Min   ");
-            Label max = new Label("Max   ");
-
-            GridPane.setHalignment(name, HPos.CENTER);
-            GridPane.setHalignment(type, HPos.CENTER);
-            GridPane.setHalignment(min, HPos.CENTER);
-            GridPane.setHalignment(max, HPos.CENTER);
-
-            grid.add(name, 0, 0, 1, 1);
-            grid.add(type, 1, 0, 1, 1);
-            grid.add(min, 2, 0, 1, 1);
-            grid.add(max, 3, 0, 1, 1);
-
-            GridPane.setHalignment(name, HPos.CENTER);
-            GridPane.setHalignment(type, HPos.CENTER);
-            GridPane.setHalignment(min, HPos.CENTER);
-            GridPane.setHalignment(max, HPos.CENTER);
 
             for (int i = 0; i < set.length; i++) {
 
@@ -50,13 +72,18 @@ public class GameSettings {
                 GridPane.setHalignment(settmin, HPos.CENTER);
                 GridPane.setHalignment(settmax, HPos.CENTER);
 
+                settname.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                setttype.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                settmin.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                settmax.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+
                 innergrid.add(settname, 0, 0, 1, 1);
                 innergrid.add(setttype, 1, 0, 1, 1);
                 innergrid.add(settmin, 2, 0, 1, 1);
                 innergrid.add(settmax, 3, 0, 1, 1);
 
                 switch (set[i][1]) {
-                    case "String":
+                    case "string":
                         TextField stringI = new TextField();
                         stringI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         stringI.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -67,11 +94,11 @@ public class GameSettings {
                             }
                         });
                         if (showUserInput) {
-                            innergrid.add(stringI, 0, 1, 2, 1);
+                            innergrid.add(stringI, 0, 1, 3, 1);
                         }
 
                         break;
-                    case "Int":
+                    case "int":
                         TextField numberI = new TextField();
                         numberI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         numberI.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -94,26 +121,24 @@ public class GameSettings {
                             }
                         });
                         if (showUserInput) {
-                            innergrid.add(numberI, 0, 1, 2, 1);
+                            innergrid.add(numberI, 0, 1, 3, 1);
                         }
                         break;
-                    case "Boolean":
+                    case "boolean":
                         TextField booleanI = new TextField();
                         booleanI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         if (showUserInput) {
-                            innergrid.add(booleanI, 0, 1, 2, 1);
+                            innergrid.add(booleanI, 0, 1, 3, 1);
                         }
                         break;
                 }
-
                 innergrid.setStyle(
                         "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
-
-                grid.add(innergrid, 0, (i + 1), 3, 1);
+                grid.add(innergrid, 0, (i + 1), 4, 1);
             }
         }
         grid.setStyle(
-                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+                "-fx-padding: 10; -fx-border-radius: 20; min-width: 200;-fx-pref-width: 9999;");
 
         return grid;
     }

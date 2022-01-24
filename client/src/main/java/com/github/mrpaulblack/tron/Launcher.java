@@ -1,8 +1,10 @@
+
 package com.github.mrpaulblack.tron;
 
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.concurrent.TimeUnit;
 import com.github.mrpaulblack.tron.assets.Inputs;
-//import com.github.mrpaulblack.tron.assets.Buttons;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -11,8 +13,27 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * <h1>Launcher</h1>
+ * <p>
+ * First Window to been show to enter user Data.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class Launcher extends SceneManager {
 
+    /**
+     * <h1><i>Launcher</i></h1>
+     * <p>
+     * Prints the mainWindow.
+     * </p>
+     * 
+     * @param stage     - needs the a given stage to handle the scene
+     * @param isVisible - controlls if this scene should be shown or not
+     */
     public void launcher(Stage stage, Boolean isVisible) {
 
         Inputs server = new Inputs();
@@ -20,17 +41,43 @@ public class Launcher extends SceneManager {
         Inputs session = new Inputs();
         // dont wok yet due stupid event handling #thanksjava
         // Buttons join = new Buttons();
-
         // get values
+
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+
                 event.consume();
 
                 store.setserver(server.getValue());
                 store.setport(port.getValue());
                 store.setcurrentSessionID(session.getValue());
+                LogController.log(Log.DEBUG, "{ " + "Join Game with" + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Port   : " + store.getport() + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Server : " + store.getserver() + " } ");
 
-                SceneManager.pushTo("createGame");
+                try {
+                    ClientController cc = new ClientController(Integer.parseInt(store.getport()), store.getserver(),
+                            store);
+
+                    cc.start();
+
+                    try {
+                        cc.sendRegister();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        TimeUnit.MILLISECONDS.sleep(300);
+                        SceneManager.pushTo("createGame");
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                        SceneManager.pushTo("");
+                    }
+                } catch (UnknownHostException | SocketException e) {
+                    SceneManager.pushTo("");
+                    e.printStackTrace();
+                }
+
             }
         };
         Button join = new Button("join");

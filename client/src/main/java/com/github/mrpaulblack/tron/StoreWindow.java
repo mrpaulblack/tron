@@ -1,3 +1,4 @@
+
 package com.github.mrpaulblack.tron;
 
 import javafx.scene.Scene;
@@ -6,14 +7,21 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-
 import com.github.mrpaulblack.tron.assets.GameSettings;
 import com.github.mrpaulblack.tron.assets.ShowPlayerStats;
-
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * <h1>StoreWindow</h1>
+ * <p>
+ * Displays all data in the store for superduper essssaaayyy debuging.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class StoreWindow {
 
     static GridPane gridToShow = new GridPane();
