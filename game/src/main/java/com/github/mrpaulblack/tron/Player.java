@@ -21,8 +21,8 @@ public class Player{
     private UUID playerID;      //müsste eigentlich raus, wenn ich sie als Identifier für die Hashmap im Game nutze
 
     private Integer tailLenght;
-    protected Integer[] positionX = new Integer [tailLenght-1];   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected Integer[] positionY = new Integer [tailLenght-1];
+    protected Integer[] positionX;   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
+    protected Integer[] positionY;
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
@@ -40,7 +40,7 @@ public class Player{
     public Player(String clientName, Float clientVersion, UUID playerID, Integer tailLenght){
         this.clientName = clientName;
         this.clientVersion = clientVersion;
-        this.tailLenght = tailLenght- 1;
+        this.tailLenght = tailLenght;
         this.playerID = playerID;
         positionX = new Integer [tailLenght]; 
         positionY = new Integer [tailLenght];
@@ -288,7 +288,7 @@ public class Player{
 	 */
     protected void move(){
         if (alive == true){
-            for(int i = tailLenght; i>0; i--){
+            for(int i = tailLenght-1; i>0; i--){
                 positionX[i] = positionX[i-1];
                 positionY[i] = positionY[i-1];
             }
