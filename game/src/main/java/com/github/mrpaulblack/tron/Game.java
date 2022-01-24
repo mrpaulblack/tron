@@ -45,6 +45,7 @@ public class Game implements GameController {
         
         //board.getStartPosi(UUID.randomUUID(), boardSize, participants.get(UUID.randomUUID())); <-- als Vorlage für Übergeben/Erstellen
     }
+
     
     @Override
     public void register(UUID playerID, String clientName, Float clientVersion){
@@ -97,12 +98,25 @@ public class Game implements GameController {
     public void disconnect(UUID playerID){
  
         if(gameState == GameState.SETTINGUP){
-            colorToID.remove(playerID);       
+            colorToID.remove(playerID);
             participants.remove(playerID);
         }
         else{
-            //TODO alive auf false setzen
+            participants.get(playerID).setAlive(false);
         }
+    }
+    
+    public GameState endGame(){
+        int aliveCounter = 0;
+        for (int i = 0; i < playerNumber; i++){
+            if(user[i].getAlive() == true){
+                aliveCounter++;
+            }
+        }
+        if(aliveCounter < 2){
+            return GameState.FINISHED;
+        }
+        else{return GameState.RUNNING;}     
     }
     
     @Override
@@ -116,13 +130,13 @@ public class Game implements GameController {
         
         for (int i = 0; i < playerNumber; i++){
             setDriverHeads(i);
-            if((driverHeadX < 0) || (driverHeadX > (boardSize-1))){ //TODO -1 checker
+            if((driverHeadX < 0) || (driverHeadX > (boardSize-1))){
                 user[i].eliminatePlayer();
             }
-            else if ((driverHeadY < 0) || (driverHeadY > (boardSize-1))){   //TODO -1 checker
+            else if ((driverHeadY < 0) || (driverHeadY > (boardSize-1))){
                 user[i].eliminatePlayer();
             }
-            else{}  //TODO empty else statement
+            else{}
         }
         clearObstacleArrays();          
     }
@@ -143,7 +157,7 @@ public class Game implements GameController {
             }
         }
         clearObstacleArrays();
-    }    
+    }
 
     public void setDriverHeads(int userNumber){
         driverHeadX = user[userNumber].positionX[0];
