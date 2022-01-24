@@ -3,10 +3,12 @@ package com.github.mrpaulblack.tron.assets;
 
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import com.github.mrpaulblack.tron.Store;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 
 /**
  * <h1>GameSettings</h1>
@@ -34,27 +36,25 @@ public class GameSettings {
 
         GridPane grid = new GridPane();
 
+        Label name = new Label("Name");
+        Label type = new Label("Type");
+        Label min = new Label("Min");
+        Label max = new Label("Max");
+
+        GridPane.setHalignment(name, HPos.CENTER);
+        GridPane.setHalignment(type, HPos.CENTER);
+        GridPane.setHalignment(min, HPos.CENTER);
+        GridPane.setHalignment(max, HPos.CENTER);
+        name.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        type.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        min.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+        max.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+
+        grid.add(name, 0, 0, 1, 1);
+        grid.add(type, 1, 0, 1, 1);
+        grid.add(min, 2, 0, 1, 1);
+        grid.add(max, 3, 0, 1, 1);
         if (set.length > 1) {
-
-            Label name = new Label("Name   ");
-            Label type = new Label("Type   ");
-            Label min = new Label("Min   ");
-            Label max = new Label("Max   ");
-
-            GridPane.setHalignment(name, HPos.CENTER);
-            GridPane.setHalignment(type, HPos.CENTER);
-            GridPane.setHalignment(min, HPos.CENTER);
-            GridPane.setHalignment(max, HPos.CENTER);
-
-            grid.add(name, 0, 0, 1, 1);
-            grid.add(type, 1, 0, 1, 1);
-            grid.add(min, 2, 0, 1, 1);
-            grid.add(max, 3, 0, 1, 1);
-
-            GridPane.setHalignment(name, HPos.CENTER);
-            GridPane.setHalignment(type, HPos.CENTER);
-            GridPane.setHalignment(min, HPos.CENTER);
-            GridPane.setHalignment(max, HPos.CENTER);
 
             for (int i = 0; i < set.length; i++) {
 
@@ -72,6 +72,11 @@ public class GameSettings {
                 GridPane.setHalignment(settmin, HPos.CENTER);
                 GridPane.setHalignment(settmax, HPos.CENTER);
 
+                settname.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                setttype.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                settmin.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+                settmax.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
+
                 innergrid.add(settname, 0, 0, 1, 1);
                 innergrid.add(setttype, 1, 0, 1, 1);
                 innergrid.add(settmin, 2, 0, 1, 1);
@@ -87,7 +92,7 @@ public class GameSettings {
                             Store.setGameSetup(setup);
                         });
                         if (showUserInput) {
-                            innergrid.add(stringI, 0, 1, 2, 1);
+                            innergrid.add(stringI, 0, 1, 3, 1);
                         }
 
                         break;
@@ -103,25 +108,24 @@ public class GameSettings {
                             Store.setGameSetup(setup);
                         });
                         if (showUserInput) {
-                            innergrid.add(numberI, 0, 1, 2, 1);
+                            innergrid.add(numberI, 0, 1, 3, 1);
                         }
                         break;
                     case "boolean":
                         TextField booleanI = new TextField();
                         booleanI.setStyle("-fx-text-alignment: center; -fx-pref-width: 9999");
                         if (showUserInput) {
-                            innergrid.add(booleanI, 0, 1, 2, 1);
+                            innergrid.add(booleanI, 0, 1, 3, 1);
                         }
                         break;
                 }
                 innergrid.setStyle(
                         "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
-
-                grid.add(innergrid, 0, (i + 1), 3, 1);
+                grid.add(innergrid, 0, (i + 1), 4, 1);
             }
         }
         grid.setStyle(
-                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+                "-fx-padding: 10; -fx-border-radius: 20; min-width: 200;-fx-pref-width: 9999;");
 
         return grid;
     }

@@ -139,12 +139,10 @@ public class CreateGameSession extends SceneManager {
                 gridPane.add(GameSettings.displaySettings(store.getSettings(), true), 0, 1, 1, 1);
                 gridPane.setStyle(
                                 "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
-                gridPane.add(
-                                session.CenterdLabeldInput(
-                                                "The Session '" + store.getcurrentSessionID()
-                                                                + "' dont exits, you can create one"),
-                                0, 98, 2, 1);
+                gridPane.add(new Label(
+                                "The Session '" + store.getcurrentSessionID() + "' dont exits, you can create one"),
+                                0, 98, 1, 1);
 
-                gridPane.add(join, 0, 99, 2, 1);
+                gridPane.add(join, 0, 99, 1, 1);
         }
 }
