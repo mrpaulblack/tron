@@ -341,12 +341,21 @@ public class Player{
         }
     }
 
+    /**
+	* <h1><i>setPositionXY</i></h1>
+	* <p>Set the new Position of the Head.</p>
+	* @param newPosition - intArray with 2 integer for X and Y of the Head.
+	*/
     protected void setPositionXY(int[] newPosition){
         
         positionX[0] = newPosition[0];
         positionY[0] = newPosition[1];
     }
 
+    /**
+	 * <h1><i>eliminatePlayer</i></h1>
+	 * <p>This method sets the head to null and the tail outside the field.</p>.
+	 */
     protected void eliminatePlayer(){
         this.alive = false;
         positionX[0] = null;
