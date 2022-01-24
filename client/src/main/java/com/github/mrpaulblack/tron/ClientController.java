@@ -94,13 +94,12 @@ public class ClientController extends Thread {
         JSONArray toSend = new JSONArray();
         for (int i = 0; i < store.getSettings().length; i++) {
             JSONObject block = new JSONObject();
-            block.put("name", store.getSettings()[i][0]);
+            block.put("key", store.getSettings()[i][4]);
             block.put("value", Store.getGameSetup()[i]);
             toSend.put(block);
         }
         data.put("settings", toSend);
         json.put("data", data);
-        System.out.println("SEND" + json.toString());
         ClientController.send(json.toString());
     }
 
@@ -130,7 +129,7 @@ public class ClientController extends Thread {
             if (json.getString("type").equals(MsgType.WELCOME.toString())) {
                 if (data.has("serverName") && data.has("serverVersion")) {
                     serverstate = MsgType.WELCOME;
-                    // sendRegister();
+                    sendRegister();
                 }
 
             }
@@ -139,11 +138,9 @@ public class ClientController extends Thread {
                     && serverstate == MsgType.WELCOME) {
                 serverstate = MsgType.SESSIONSETTINGS;
 
-                System.out.println("GET" + data.toString());
-
                 JSONArray array = new JSONArray(data.get("settings").toString());
 
-                String[][] toStore = new String[array.length()][4];
+                String[][] toStore = new String[array.length()][5];
                 for (int i = 0; i < array.length(); i++) {
                     JSONObject setting = array.getJSONObject(i);
 
@@ -151,6 +148,7 @@ public class ClientController extends Thread {
                     toStore[i][1] = setting.get("type").toString();
                     toStore[i][2] = setting.get("rangeMin").toString();
                     toStore[i][3] = setting.get("rangeMin").toString();
+                    toStore[i][4] = setting.get("key").toString();
                 }
 
                 store.setSettings(toStore);
