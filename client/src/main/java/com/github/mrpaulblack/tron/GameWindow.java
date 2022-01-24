@@ -1,3 +1,4 @@
+
 package com.github.mrpaulblack.tron;
 
 import javafx.scene.Scene;
@@ -6,7 +7,27 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
+/**
+ * <h1>GameWindow</h1>
+ * <p>
+ * Displays the GameWindow.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class GameWindow extends SceneManager {
+
+    /**
+     * <h1><i>gameWindow</i></h1>
+     * <p>
+     * Print the mainWindow.
+     * </p>
+     * 
+     * @param stage     - needs the a given stage to handle the scene
+     * @param isVisible - controlls if this scene should be shown or not
+     */
     public void gameWindow(Stage stage, Boolean isVisible) {
 
         GridPane gridPane = new GridPane();

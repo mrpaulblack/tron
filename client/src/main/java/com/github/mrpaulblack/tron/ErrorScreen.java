@@ -1,3 +1,4 @@
+
 package com.github.mrpaulblack.tron;
 
 import javafx.scene.Scene;
@@ -9,7 +10,25 @@ import javafx.scene.control.Button;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * <h1><i>ErrorScreen</i></h1>
+ * <p>
+ * Go to Screen if exeptions are thrown
+ * </p>
+ * 
+ * @param store - Needs the connet store
+ */
 public class ErrorScreen {
+
+    /**
+     * <h1><i>show</i></h1>
+     * <p>
+     * shows the window.
+     * </p>
+     * 
+     * @param stage     - needs the a given stage to handle the scene
+     * @param isVisible - controlls if this scene should be shown or not
+     */
     public void show(Stage stage, Boolean isVisible) {
 
         GridPane gridPane = new GridPane();
@@ -17,7 +36,7 @@ public class ErrorScreen {
 
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-               // SceneManager.pushTo("launcher");
+                // SceneManager.pushTo("launcher");
                 SceneManager.pushTo("launcher");
             };
         };

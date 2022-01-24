@@ -1,12 +1,10 @@
+
 package com.github.mrpaulblack.tron;
 
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.concurrent.TimeUnit;
-
 import com.github.mrpaulblack.tron.assets.Inputs;
-//import com.github.mrpaulblack.tron.assets.Buttons;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -15,8 +13,27 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * <h1>Launcher</h1>
+ * <p>
+ * First Window to been show to enter user Data.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class Launcher extends SceneManager {
 
+    /**
+     * <h1><i>Launcher</i></h1>
+     * <p>
+     * Prints the mainWindow.
+     * </p>
+     * 
+     * @param stage     - needs the a given stage to handle the scene
+     * @param isVisible - controlls if this scene should be shown or not
+     */
     public void launcher(Stage stage, Boolean isVisible) {
 
         Inputs server = new Inputs();

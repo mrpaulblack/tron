@@ -1,9 +1,8 @@
+
 package com.github.mrpaulblack.tron;
 
 import com.github.mrpaulblack.tron.assets.GameSettings;
 import com.github.mrpaulblack.tron.assets.Inputs;
-//import com.github.mrpaulblack.tron.assets.Buttons;
-
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +12,16 @@ import javafx.scene.layout.GridPane;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
+/**
+ * <h1>CreateGameSession</h1>
+ * <p>
+ * The Window to create a gamesession.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class CreateGameSession extends SceneManager {
 
         // Grid Init
@@ -21,13 +30,20 @@ public class CreateGameSession extends SceneManager {
         static Inputs session = new Inputs();
         static Button join = new Button("Create Session");
 
+        /**
+         * <h1><i>createGameySession</i></h1>
+         * <p>
+         * Displays the main section auf the CreateGameSession Screen.
+         * </p>
+         * 
+         * @param stage     - needs the a given stage to handle the scene
+         * @param isVisible - controlls if this scene should be shown or not
+         */
         public void createGameSession(Stage stage, Boolean isVisible) {
 
                 // dont wok yet due stupid event handling #thanksjava
                 // Buttons join = new Buttons();
-
                 // Button Init
-
                 // get values
                 EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
                         public void handle(ActionEvent event) {
@@ -85,7 +101,16 @@ public class CreateGameSession extends SceneManager {
                 }
         }
 
-        // Is needed for better reprint and better ractivity
+        /**
+         * <h1><i>update Label</i></h1>
+         * <p>
+         * Will update the Label if needed.
+         * </p>
+         * 
+         * @param gridPane - Needs a given gridpane to print the data
+         * @param session  - current sessionId
+         * @param join     - join button to enable further proccess
+         */
         private void updateLabel(GridPane gridPane, Inputs session, Button join) {
                 LogController.log(Log.TRACE, "{ " + "Update Label in Create Game Session Screen" + " } ");
                 gridPane.getChildren().clear();
@@ -99,6 +124,12 @@ public class CreateGameSession extends SceneManager {
                 gridPane.setStyle("-fx-max-width: 500;");
         }
 
+        /**
+         * <h1><i>rePrintData</i></h1>
+         * <p>
+         * reprint a screen if the data changes.
+         * </p>
+         */
         public static void reprintData() {
 
                 LogController.log(Log.TRACE, "{ " + "Reprint Create Game Session Screen" + " } ");

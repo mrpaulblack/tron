@@ -1,9 +1,20 @@
+
 package com.github.mrpaulblack.tron;
 
 import java.net.*;
 import java.nio.charset.Charset;
 import org.json.*;
 
+/**
+ * <h1>ClientController</h1>
+ * <p>
+ * Controlls the Input/Output for the client.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class ClientController extends Thread {
 
     private static int port;
@@ -21,7 +32,12 @@ public class ClientController extends Thread {
 
     }
 
-    // start in new thread
+    /**
+     * <h1><i>run</i></h1>
+     * <p>
+     * Start method for the JAVA Thread to "run along" the UI.
+     * </p>
+     */
     public void run() {
         try {
             sendHello();
@@ -37,6 +53,14 @@ public class ClientController extends Thread {
         }
     }
 
+    /**
+     * <h1><i>send</i></h1>
+     * <p>
+     * Sends the Packe to the given Server.
+     * </p>
+     * 
+     * @param payload - the Data to be send
+     */
     private static void send(String payload) throws Exception {
         LogController.log(Log.TRACE, "TX: " + payload);
         socket.send(new DatagramPacket(payload.getBytes(), payload.getBytes().length, ip, port));
@@ -90,6 +114,14 @@ public class ClientController extends Thread {
         this.send(json.toString());
     }
 
+    /**
+     * <h1><i>decoder</i></h1>
+     * <p>
+     * Listens and decode incomming data from the server.
+     * </p>
+     * 
+     * @param payload - Data to be decoded
+     */
     private void decode(String payload) throws Exception {
         JSONObject json = new JSONObject(payload);
         JSONObject data = new JSONObject(json.get("data").toString());
@@ -136,6 +168,12 @@ public class ClientController extends Thread {
 
     private Thread t;
 
+    /**
+     * <h1><i>start</i></h1>
+     * <p>
+     * Start a Thread for the controller.
+     * </p>
+     */
     public void start() {
         t = new Thread(this, "ClientController");
         t.start();

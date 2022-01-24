@@ -1,3 +1,4 @@
+
 package com.github.mrpaulblack.tron.assets;
 
 import javafx.scene.Node;
@@ -7,11 +8,32 @@ import javafx.scene.control.TextField;
 import com.github.mrpaulblack.tron.Store;
 import javafx.geometry.HPos;
 
+/**
+ * <h1>GameSettings</h1>
+ * <p>
+ * Displays the Gamesettings.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 public class GameSettings {
+
+    /**
+     * <h1><i>Display Settings</i></h1>
+     * <p>
+     * Displays all Settings in a Grid.
+     * </p>
+     * 
+     * @param set           - Settings: should be x[all Setting][var] : 0 = name, 1
+     *                      = type, 2 = min, 3 = max
+     * @param showUserInput - Controlls if the Input should been shown or not
+     */
     public static Node displaySettings(String[][] set, boolean showUserInput) {
-        
+
         GridPane grid = new GridPane();
-        
+
         if (set.length > 1) {
 
             Label name = new Label("Name   ");
@@ -34,9 +56,7 @@ public class GameSettings {
             GridPane.setHalignment(min, HPos.CENTER);
             GridPane.setHalignment(max, HPos.CENTER);
 
-
             for (int i = 0; i < set.length; i++) {
-
 
                 final Integer thanksJavaForThisShit = i;
 

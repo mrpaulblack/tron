@@ -1,6 +1,18 @@
+
 package com.github.mrpaulblack.tron;
 
 import java.util.Random;
+
+/**
+ * <h1>Store</h1>
+ * <p>
+ * Will handle all data to be computed in some way.
+ * </p>
+ * 
+ * @author: swt_lerngruppe_tron
+ * @version 1.0
+ * @since 2022-01-23
+ */
 
 public class Store {
 
@@ -149,7 +161,16 @@ public class Store {
         StoreWindow.refreshStore(this);
     }
 
-    // DEBUG
+    /**
+     * <h1><i>dummyFabricator</i></h1>
+     * <p>
+     * generats random data for debug and test purposes.
+     * </p>
+     * 
+     * @param logLvl  - Log ENUM sets the log level of that line
+     * @param logLine - String is the actual log line (you can use
+     *                [object].toString() when calling this method)
+     */
     public String dummyDataFabric(String arg) {
         Random rand = new Random();
 
