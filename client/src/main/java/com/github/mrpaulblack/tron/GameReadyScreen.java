@@ -33,6 +33,9 @@ public class GameReadyScreen extends SceneManager {
         }
 
         public static void reprintData() {
+
+                LogController.log(Log.DEBUG, "{ " + "Reprint Game Ready Screen" + " } ");
+
                 gridPane.getChildren().clear();
                 gridPane.add(header, 0, 0, 1, 1);
                 gridPane.add(sps.showOwn(store), 0, 1, 1, 1);

@@ -14,9 +14,12 @@ public class SceneManager {
 
     public void showDebugWindow() {
         // Debug Window for Store
-        Stage secondStage = new Stage();
-        StoreWindow sw = new StoreWindow();
-        sw.showStore(secondStage, store);
+        if ((LogController.getGlobalLogLvl() == Log.DEBUG) || LogController.getGlobalLogLvl() == Log.TRACE) {
+            Stage secondStage = new Stage();
+            StoreWindow sw = new StoreWindow();
+            sw.showStore(secondStage, store);
+            LogController.log(Log.TRACE, "{ " + "Open Store DebugWindow" + " } ");
+        }
     }
 
     public void windowControll(Stage stage) {
@@ -26,6 +29,7 @@ public class SceneManager {
 
         l.launcher(global, true);
         cgs.createGameSession(stage, false);
+        LogController.log(Log.TRACE, "{ " + "Open Launcher" + " } ");
     }
 
     static public void pushTo(String pushto) {
@@ -35,26 +39,21 @@ public class SceneManager {
         grs.gameReadyScreen(global, false);
         gw.gameWindow(global, false);
 
-        System.out.println("try push: " + pushto);
+        LogController.log(Log.TRACE, "{ " + "Try to set Scene " + pushto + " } ");
         switch (pushto) {
             case "launcher":
-                System.out.println("push to 'Launcher'");
                 l.launcher(global, true);
                 break;
             case "createGame":
-                System.out.println("push to 'createGame'");
                 cgs.createGameSession(global, true);
                 break;
             case "gameReadyScreen":
-                System.out.println("push to 'gamReadyScreen'");
                 grs.gameReadyScreen(global, true);
                 break;
             case "gamewindow":
-                System.out.println("push to 'gamewindow'");
                 gw.gameWindow(global, true);
                 break;
             default:
-                System.out.println("Invalid arg for 'pushTo");
         }
     }
 }

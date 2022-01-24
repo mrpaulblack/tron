@@ -15,69 +15,64 @@ public class Store {
     private static String[][] settings = { {} };
     private static String[] gameSetup = {};
 
-    /*
-     * private String[] otherPlayerName = { dummyDataFabric("name"),
-     * dummyDataFabric("name"),
-     * dummyDataFabric("name"), dummyDataFabric("name"),
-     * dummyDataFabric("name"), dummyDataFabric("name") };
-     * private String[] otherPlayerColor = { dummyDataFabric("color"),
-     * dummyDataFabric("color"),
-     * dummyDataFabric("color"), dummyDataFabric("color"),
-     * dummyDataFabric("color"), dummyDataFabric("color") };
-     * private String[] otherPlayerReady = { dummyDataFabric("isReady"),
-     * dummyDataFabric("isReady"),
-     * dummyDataFabric("isReady"), dummyDataFabric("isReady"),
-     * dummyDataFabric("isReady"), dummyDataFabric("isReady") };
-     */
     // ___SESSIONID___
     public void setcurrentSessionID(String value) {
+        LogController.log(Log.TRACE, "{ " + "Set Session ID: " + value + " } ");
         currentSessionID = value;
         StoreWindow.refreshStore(this);
     }
 
     public String getcurrentSessionID() {
+        LogController.log(Log.TRACE, "{ " + "Gett Session ID: " + currentSessionID + " } ");
         return currentSessionID;
     }
 
     // ___PORT___
     public void setport(String value) {
+        LogController.log(Log.TRACE, "{ " + "Set Port: " + value + " } ");
         port = value;
         StoreWindow.refreshStore(this);
     }
 
     public String getport() {
+        LogController.log(Log.TRACE, "{ " + "Get Port: " + port + " } ");
         return port;
     }
 
     // ___SERVER___
     public void setserver(String value) {
+        LogController.log(Log.TRACE, "{ " + "Set Server: " + value + " } ");
         server = value;
         StoreWindow.refreshStore(this);
     }
 
     public String getserver() {
+        LogController.log(Log.TRACE, "{ " + "Get Server: " + server + " } ");
         return server;
     }
 
     // ___CHOSENNAME___
     public void setchosenName(String value) {
+        LogController.log(Log.TRACE, "{ " + "Set Own Name: " + value + " } ");
         chosenName = value;
         StoreWindow.refreshStore(this);
     }
 
     public String getchosenName() {
-
+        LogController.log(Log.TRACE, "{ " + "Get Own Name: " + chosenName + " } ");
         return chosenName;
     }
 
     // ___CHOSENCOLOR___
     public void setchosenColor(String value) {
+        LogController.log(Log.TRACE, "{ " + "Set Own Color: " + value + " } ");
         chosenColor = value;
         GameReadyScreen.reprintData();
         StoreWindow.refreshStore(this);
     }
 
     public String getchosenColor() {
+        LogController.log(Log.TRACE, "{ " + "Get Own Color: " + chosenColor + " } ");
         return chosenColor;
     }
 

@@ -15,86 +15,97 @@ import javafx.event.EventHandler;
 
 public class CreateGameSession extends SceneManager {
 
-    // Grid Init
-    static GridPane gridPane = new GridPane();
-    Scene scene = new Scene(new StackPane(gridPane));
-    static Inputs session = new Inputs();
-    static Button join = new Button("Create Session");
+        // Grid Init
+        static GridPane gridPane = new GridPane();
+        Scene scene = new Scene(new StackPane(gridPane));
+        static Inputs session = new Inputs();
+        static Button join = new Button("Create Session");
 
-    public void createGameSession(Stage stage, Boolean isVisible) {
+        public void createGameSession(Stage stage, Boolean isVisible) {
 
-        // dont wok yet due stupid event handling #thanksjava
-        // Buttons join = new Buttons();
+                // dont wok yet due stupid event handling #thanksjava
+                // Buttons join = new Buttons();
 
-        // Button Init
+                // Button Init
 
-        // get values
-        EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                event.consume();
-                store.setcurrentSessionID(session.getValue());
+                // get values
+                EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
+                        public void handle(ActionEvent event) {
+                                LogController.log(Log.TRACE, "{ " + "Join game" + " } ");
+                                event.consume();
+                                store.setcurrentSessionID(session.getValue());
+                                updateLabel(gridPane, session, join);
+
+                                SceneManager.pushTo("gameReadyScreen");
+                                store.reprintStoreWindow();
+                        }
+                };
+
+                join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
+                join.setOnAction(buttonHandler);
+
+                gridPane.setStyle("-fx-max-width: 500;");
+
                 updateLabel(gridPane, session, join);
 
-                SceneManager.pushTo("gameReadyScreen");
-                store.reprintStoreWindow();
-            }
-        };
+                gridPane.setStyle(
+                                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
 
-        join.setStyle("-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999; -fx-stroke-width: 1");
-        join.setOnAction(buttonHandler);
+                String[][] DUMMY = {
+                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                                                store.dummyDataFabric("min"),
+                                                store.dummyDataFabric("max") },
+                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                                                store.dummyDataFabric("min"),
+                                                store.dummyDataFabric("max") },
+                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                                                store.dummyDataFabric("min"),
+                                                store.dummyDataFabric("max") },
+                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                                                store.dummyDataFabric("min"),
+                                                store.dummyDataFabric("max") },
+                                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"),
+                                                store.dummyDataFabric("min"),
+                                                store.dummyDataFabric("max") }, };
+                store.setSettings(DUMMY);
 
-        gridPane.setStyle("-fx-max-width: 500;");
+                reprintData();
 
-        updateLabel(gridPane, session, join);
-
-        gridPane.setStyle(
-                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
-
-        String[][] DUMMY = {
-                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"), store.dummyDataFabric("min"),
-                        store.dummyDataFabric("max") },
-                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"), store.dummyDataFabric("min"),
-                        store.dummyDataFabric("max") },
-                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"), store.dummyDataFabric("min"),
-                        store.dummyDataFabric("max") },
-                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"), store.dummyDataFabric("min"),
-                        store.dummyDataFabric("max") },
-                { store.dummyDataFabric("settingname"), store.dummyDataFabric("type"), store.dummyDataFabric("min"),
-                        store.dummyDataFabric("max") }, };
-        store.setSettings(DUMMY);
-
-        reprintData();
-
-        if (isVisible) {
-            stage.setScene(scene);
-            stage.show();
+                if (isVisible) {
+                        stage.setScene(scene);
+                        stage.show();
+                }
         }
-    }
 
-    // Is needed for better reprint and better ractivity
-    private void updateLabel(GridPane gridPane, Inputs session, Button join) {
-        gridPane.getChildren().clear();
-        gridPane.add(
-                session.CenterdLabeldInput(
-                        "The Session '" + store.getcurrentSessionID() + "' dont exits, you can create one"),
-                0, 0, 2, 1);
+        // Is needed for better reprint and better ractivity
+        private void updateLabel(GridPane gridPane, Inputs session, Button join) {
+                LogController.log(Log.TRACE, "{ " + "Update Label in Create Game Session Screen" + " } ");
+                gridPane.getChildren().clear();
+                gridPane.add(
+                                session.CenterdLabeldInput(
+                                                "The Session '" + store.getcurrentSessionID()
+                                                                + "' dont exits, you can create one"),
+                                0, 0, 2, 1);
 
-        gridPane.add(join, 0, 99, 2, 1);
-        gridPane.setStyle("-fx-max-width: 500;");
-    }
+                gridPane.add(join, 0, 99, 2, 1);
+                gridPane.setStyle("-fx-max-width: 500;");
+        }
 
-    public static void reprintData() {
+        public static void reprintData() {
 
-        gridPane.getChildren().clear();
-        gridPane.add(new Label("Game Settings"), 0, 0, 1, 1);
-        gridPane.add(GameSettings.displaySettings(store.getSettings(), true), 0, 1, 1, 1);
-        gridPane.setStyle(
-                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
-        gridPane.add(
-                session.CenterdLabeldInput(
-                        "The Session '" + store.getcurrentSessionID() + "' dont exits, you can create one"),
-                0, 98, 2, 1);
+                LogController.log(Log.TRACE, "{ " + "Reprint Create Game Session Screen" + " } ");
 
-        gridPane.add(join, 0, 99, 2, 1);
-    }
+                gridPane.getChildren().clear();
+                gridPane.add(new Label("Game Settings"), 0, 0, 1, 1);
+                gridPane.add(GameSettings.displaySettings(store.getSettings(), true), 0, 1, 1, 1);
+                gridPane.setStyle(
+                                "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
+                gridPane.add(
+                                session.CenterdLabeldInput(
+                                                "The Session '" + store.getcurrentSessionID()
+                                                                + "' dont exits, you can create one"),
+                                0, 98, 2, 1);
+
+                gridPane.add(join, 0, 99, 2, 1);
+        }
 }

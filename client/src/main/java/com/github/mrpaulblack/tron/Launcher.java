@@ -24,6 +24,10 @@ public class Launcher extends SceneManager {
         // get values
         EventHandler<ActionEvent> buttonHandler = new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                LogController.log(Log.DEBUG, "{ " + "Join Game with" + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Port   : " + store.getport() + " } ");
+                LogController.log(Log.DEBUG, "{ " + "Server : " + store.getserver() + " } ");
+
                 event.consume();
 
                 store.setserver(server.getValue());

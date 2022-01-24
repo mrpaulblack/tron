@@ -1,5 +1,8 @@
 package com.github.mrpaulblack.tron.assets;
 
+import com.github.mrpaulblack.tron.Log;
+import com.github.mrpaulblack.tron.LogController;
+
 import javafx.geometry.HPos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -28,8 +31,8 @@ public class Inputs {
                 "-fx-padding: 10; -fx-border-radius: 20; -fx-pref-width: 9999;");
 
         input.textProperty().addListener((observable, oldValue, newValue) -> {
-           // System.out.println("Check Text in '" + name + "' New Value '" + newValue + "'");
             value = newValue;
+            LogController.log(Log.TRACE, "{ " + "Input from Currenz Field" + value + " } ");
         });
 
         return grid;

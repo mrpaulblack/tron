@@ -13,16 +13,16 @@ public class GameWindow extends SceneManager {
         Scene scene = new Scene(new StackPane(gridPane));
         scene.setOnKeyPressed(e -> {
             if ((e.getCode() == KeyCode.W) || (e.getCode() == KeyCode.UP)) {
-                System.out.println("Moving Up");
+                LogController.log(Log.TRACE, "{ " + "Move Up" + " } ");
             }
             if ((e.getCode() == KeyCode.D) || (e.getCode() == KeyCode.RIGHT)) {
-                System.out.println("Moving Rigth");
+                LogController.log(Log.TRACE, "{ " + "Move Right" + " } ");
             }
             if ((e.getCode() == KeyCode.S) || (e.getCode() == KeyCode.DOWN)) {
-                System.out.println("Moving Down");
+                LogController.log(Log.TRACE, "{ " + "Move Down" + " } ");
             }
             if ((e.getCode() == KeyCode.A) || (e.getCode() == KeyCode.LEFT)) {
-                System.out.println("Moving Left");
+                LogController.log(Log.TRACE, "{ " + "Move Left" + " } ");
             }
 
         });

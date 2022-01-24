@@ -17,6 +17,12 @@ public class Client extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        try {
+			//enable trace for debug
+			LogController.setGlobalLogLvl(Log.DEBUG);
+            launch();
+		} catch (Exception e) {
+			LogController.log(Log.ERROR, e.toString());
+		}
     }
 }

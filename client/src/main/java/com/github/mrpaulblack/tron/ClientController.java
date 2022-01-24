@@ -2,7 +2,6 @@ package com.github.mrpaulblack.tron;
 import java.net.*;
 import java.nio.charset.Charset;
 import org.json.*;
- 
 
 public class ClientController {
  
