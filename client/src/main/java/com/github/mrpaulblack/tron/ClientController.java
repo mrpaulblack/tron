@@ -113,54 +113,94 @@ public class ClientController extends Thread {
         this.send(json.toString());
     }
 
-    /**
-     * <h1><i>decoder</i></h1>
-     * <p>
-     * Listens and decode incomming data from the server.
-     * </p>
-     * 
-     * @param payload - Data to be decoded
-     */
-    private void decode(String payload) throws Exception {
-        JSONObject json = new JSONObject(payload);
-        JSONObject data = new JSONObject(json.get("data").toString());
-        if (json.has("type")) {
-            // server welcome
-            if (json.getString("type").equals(MsgType.WELCOME.toString())) {
-                if (data.has("serverName") && data.has("serverVersion")) {
-                    serverstate = MsgType.WELCOME;
-                    sendRegister();
+    private void sendError(MsgError error, String message) throws Exception {
+        JSONObject json = new JSONObject();
+        JSONObject data = new JSONObject();
+        if (message != null) {
+            json.put("message", message);
+        }
+        json.put("type", MsgType.ERROR.toString());
+        data.put("error", error.toString());
+        json.put("data", data);
+        send(json.toString());
+    }
+
+
+
+    private void decode(String payload) {
+        try {
+            JSONObject json = new JSONObject(payload);
+            JSONObject data = new JSONObject(json.get("data").toString());
+            if (json.has("type")) {
+                //server welcome
+                if (json.getString("type").equals(MsgType.WELCOME.toString())) {
+                    if (data.has("serverName") && data.has("serverVersion")) {
+                        if (data.getFloat("serverVersion") > 0.0f) {
+                            serverstate = MsgType.WELCOME;
+                            sendRegister();
+                        }
+                        else {
+                            sendError(MsgError.UNSUPPORTEDMESSAGETYPE, "wrong server version.");
+                            throw new IllegalArgumentException("wrong server version.");
+                        }
+                    }
+                    else {
+                        sendError(MsgError.UNSUPPORTEDMESSAGETYPE, "Your payload is missing at least one required keys: serverName, serverVersion.");
+                        throw new IllegalArgumentException("Your payload is missing at least one required keys: serverName, serverVersion.");
+                    }
                 }
 
-            }
-            // server sessionssettings
-            else if (json.getString("type").equals(MsgType.SESSIONSETTINGS.toString())
-                    && serverstate == MsgType.WELCOME) {
-                serverstate = MsgType.SESSIONSETTINGS;
+                //server sessionssettings
+                else if (json.getString("type").equals(MsgType.SESSIONSETTINGS.toString()) && serverstate == MsgType.WELCOME) {
+                    if (data.has("settings")) { 
+                        Boolean ok = true;                      
+                        for (int i = 0; i < data.getJSONArray("settings").length(); i++) {
+                            JSONObject tempSettings = new JSONObject(data.getJSONArray("settings").get(i).toString());
+                            if (!tempSettings.has("name") || !(tempSettings.has("key") || !tempSettings.has("type") || !tempSettings.has("rangeMin") || !tempSettings.has("rangeMax"))) {
+                                ok = false;
+                                break;
+                            }
+                        }
+                        if (ok == true) {
+                            serverstate = MsgType.SESSIONSETTINGS;
+                            JSONArray array = new JSONArray(data.get("settings").toString());
 
-                JSONArray array = new JSONArray(data.get("settings").toString());
+                            String[][] toStore = new String[array.length()][5];
+                            for (int i = 0; i < array.length(); i++) {
+                                JSONObject setting = array.getJSONObject(i);
 
-                String[][] toStore = new String[array.length()][5];
-                for (int i = 0; i < array.length(); i++) {
-                    JSONObject setting = array.getJSONObject(i);
-
-                    toStore[i][0] = setting.get("name").toString();
-                    toStore[i][1] = setting.get("type").toString();
-                    toStore[i][2] = setting.get("rangeMin").toString();
-                    toStore[i][3] = setting.get("rangeMin").toString();
-                    toStore[i][4] = setting.get("key").toString();
+                                toStore[i][0] = setting.get("name").toString();
+                                toStore[i][1] = setting.get("type").toString();
+                                toStore[i][2] = setting.get("rangeMin").toString();
+                                toStore[i][3] = setting.get("rangeMin").toString();
+                                toStore[i][4] = setting.get("key").toString();
+                            }
+                            store.setSettings(toStore);
+                        }
+                        else {
+                            sendError(MsgError.UNSUPPORTEDMESSAGETYPE, "Your payload is missing at least one of the required keys in at least one index of the settings array: name, key, type, rangeMin, rangeMax.");
+                            throw new IllegalArgumentException("settings payload is missing at least one key: name, key, type, rangeMin, rangeMax.");
+                        }
+                    }
+                    else {
+                        sendError(MsgError.UNSUPPORTEDMESSAGETYPE, "Your payload is missing the required key: settings.");
+                        throw new IllegalArgumentException("Your payload is missing the required key: settings.");
+                    }
                 }
 
-                store.setSettings(toStore);
-
+                //server update 
+                else if (json.getString("type").equals(MsgType.UPDATE.toString()) && serverstate == MsgType.SESSIONSETTINGS){
+                    if(data.has(""))
+                    serverstate = MsgType.UPDATE;
+                    sendMove();
+                }
             }
-            // server update
-            else if (json.getString("type").equals(MsgType.UPDATE.toString())
-                    && serverstate == MsgType.SESSIONSETTINGS) {
-                serverstate = MsgType.UPDATE;
-                // sendMove();
-
+            else {
+                sendError(MsgError.UNKNOWN, "Your payload is missing the type key.");
+                throw new IllegalArgumentException("Type key is missing from request");
             }
+        } catch (Exception e) {
+            LogController.log(Log.ERROR, e.toString());
         }
     }
 
@@ -177,3 +217,5 @@ public class ClientController extends Thread {
         t.start();
     }
 }
+
+
