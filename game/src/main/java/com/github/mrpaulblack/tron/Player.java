@@ -1,6 +1,8 @@
 package com.github.mrpaulblack.tron;
-import java.util.Arrays;
+
 import java.util.UUID;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
 * <h1>Player</h1>
@@ -14,20 +16,17 @@ import java.util.UUID;
 * @since   2022-01-19
 */
 public class Player{
-
     private String name;
     private String clientName;
     private Float clientVersion;
-    private UUID playerID;      //müsste eigentlich raus, wenn ich sie als Identifier für die Hashmap im Game nutze
-
+    private UUID playerID;
     private Integer tailLenght;
-    protected Integer[] positionX;   //startpositionen über eine Funktion setzen? Am Besten im Construktor irgnedwie klären!
-    protected Integer[] positionY;
+    protected Integer[] positionX = new Integer [tailLenght];
+    protected Integer[] positionY = new Integer [tailLenght];
     private PlayerColor color;
     private Boolean alive = false;
     private Boolean ready = false;
-    private char direction;
-    
+    private char direction;    
 
     /**
 	 * <h1><i>Player</i></h1>
@@ -44,6 +43,30 @@ public class Player{
         this.playerID = playerID;
         positionX = new Integer [tailLenght]; 
         positionY = new Integer [tailLenght];
+    }
+
+    /**
+	 * <h1><i>playerToJSON</i></h1>
+	 * <p>Bundles player related information into a JSON Object that is then used for Game-Server communication in every update send to the server.</p>
+	 */
+    public JSONObject playerToJSON(){
+        JSONObject playerload = new JSONObject();
+        JSONObject tailCoordinates = new JSONObject();
+        JSONArray tailXY = new JSONArray();
+        playerload.put("color", color.toString());
+        playerload.put("uuid", playerID.toString());
+        playerload.put("client", clientName);
+        playerload.put("ready", ready.toString());
+        playerload.put("isSpectator", alive.toString());
+
+        for(int i = 0; i < tailLenght; i++){
+            tailCoordinates.clear();
+            tailCoordinates.put("x", positionX[i]);
+            tailCoordinates.put("y", positionY[i]);
+            tailXY.put(tailCoordinates);
+        }
+        playerload.put("tail", tailXY);
+        return playerload;
     }
 
     /**
@@ -131,7 +154,6 @@ public class Player{
         this.ready = false;
         this.name = "";
         this.color = PlayerColor.UNDEFINED;
-        //playerCount--
     }
 
     /**
