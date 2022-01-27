@@ -4,17 +4,13 @@ import java.util.UUID;
 import org.json.*;
 
 /**
-* <h1>Player</h1>
-* <p>This interface ensures all necessary methods as well as the payload-structure for game-server communication.</p>
-
-* @author: swt_lerngruppe_tron
-* @version 1.0
-* @since   2022-01-17
-*/
+ * <p>This interface ensures all necessary methods as well as the payload-structure for game-server communication.</p>
+ * @version 1.0
+ * @since   2022-01-17
+ */
 public interface GameController {
 
     /**
-	 * <h1><i>getSettings/i></h1>
 	 * <p>Ensures that all necessary information for client to server to game communication is implemented.</p>
 	 */
     static public JSONArray getSettings() {

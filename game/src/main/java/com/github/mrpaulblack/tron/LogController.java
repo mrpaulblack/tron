@@ -2,12 +2,23 @@ package com.github.mrpaulblack.tron;
 
 import java.time.LocalDateTime;
 
+/**
+* <p>This method is the global logging facility and is abstract so it cannot be instantiated, since
+* there cannot be multiple log controller. It basically just prints messages it receives through
+* the log method based on the global log level. Every method is static so it can be called by every
+* object importing it without instantiating an object and so everything gets written to the same
+* log controller.</p>
+* <b>Note:</b> This could be changed pretty easy to include more log level or to
+* write the log to a file instead of printing it into the terminal
+*
+* @version 1.0
+* @since   2022-12-27
+*/
 public abstract class LogController {
     private static StackTraceElement element;
 	private static Log globalLogLvl = Log.INFO;
 
 	/**
-	 *	<h1><i>setGlobalLogLvl</i></h1>
 	 * <p>Sets globalLogLvl attribute with the Log ENUM. This method changes the level of the log
 	 * based on the log level provided.</p>
 	 * @param logLvl - Log ENUM that changes the global log level
@@ -17,7 +28,6 @@ public abstract class LogController {
 	}
 
 	/**
-	 *	<h1><i>getGlobalLogLvl</i></h1>
 	 * <p>Gets the globalLogLvl attribute with the Log ENUM.</p>
 	 * @return Log - returns the current global log level
 	 */
@@ -26,7 +36,6 @@ public abstract class LogController {
 	}
 
 	/**
-	 *	<h1><i>log</i></h1>
 	 * <p>This static method gets called every time a line is added to the log.
 	 * It gets the line and the level and prints it in the terminal based on the global
 	 * level.</p>
