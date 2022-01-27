@@ -12,7 +12,6 @@ import org.json.*;
 
 
 /**
- * <h1>ServerController</h1>
  * <p>ServerController that supports the tron API spec. This Class basically gets JSON
  * payloads and decodes them and returns the correct payloads back to the clients. It also
  * sits between clients and the Game lib an sanitizes payloads.</p>
@@ -49,7 +48,6 @@ import org.json.*;
  * {"type":"test","data":{"test":1}}
  * {"data":{"protocolVersion":1}}
  * 
- * @author: swt_lerngruppe_tron
  * @version 1.0
  * @since   2021-12-29
  */
@@ -68,7 +66,6 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>ServerController</i></h1>
 	 * <p>This contructor creates the ServerController and a timeout timer. It sets the default
      * timeout for clients and also sets the server with which the ServerController interacts.</p>
 	 * @param server - Server that can send and recieve data
@@ -83,10 +80,10 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>sendWelcome</i></h1>
 	 * <p>This method sends the welcome defined in the Tron API spec
      * to the client passed as the first argument.</p>
 	 * @param client - URI of the client where the data is send to
+     * @throws Exception - generic Exception
 	 */
     private void sendWelcome(URI client) throws Exception {
         JSONObject json = new JSONObject();
@@ -103,10 +100,10 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>sendSessionSettings</i></h1>
 	 * <p>This method sends the session settings defined in the Tron API spec
      * to the client passed as the first argument.</p>
 	 * @param client - URI of the client where the data is send to
+     * @throws Exception - generic Exception
 	 */
     private void sendSessionSettings(URI client) throws Exception {
         JSONObject json = new JSONObject();
@@ -122,12 +119,12 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>sendError</i></h1>
 	 * <p>This method returns a specific error with an optional string
      * message to a specific client.</p>
 	 * @param client - URI of the client where the data is send to
      * @param error - MsgError of the specific error type
      * @param message - String is an optional message returned to the client
+     * @throws Exception - generic Exception
 	 */
     private void sendError(URI client, MsgError error, String message) throws Exception {
         JSONObject json = new JSONObject();
@@ -147,10 +144,10 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>broadcastUpdate</i></h1>
 	 * <p>This method sends the update from the game to all client in
      * a session ID.</p>
 	 * @param sessionID - String of the session id of the specific game
+     * @throws Exception - generic Exception
 	 */
     private void broadcastUpdate(String sessionID) throws Exception {
         JSONObject json = new JSONObject();
@@ -168,12 +165,12 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>broadcastMessage</i></h1>
 	 * <p>This method broadcasts a String message from a specfic client to eacht client in a
      * session ID.</p>
 	 * @param sessionID - String of the session ID where the message is getting broadcast to
      * @param sender - URI of the origin client of the message
      * @param message - String is the actual message broadcasted to the clients in a session
+     * @throws Exception - generic Exception
 	 */
     private void broadcastMessage(String sessionID, URI sender, String message) throws Exception {
         JSONObject json = new JSONObject();
@@ -194,7 +191,6 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>decode</i></h1>
 	 * <p>This is the main decoder method. It recieves a String payload from a client
      * and parses and sanitizes it, following the Tron API spec. This method also calls other methods
      * that return data to the client as well as updated the game lib with sanitized data from the client.</p>
@@ -398,7 +394,6 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>getClientTimeout</i></h1>
 	 * <p>This method is a helper for the TimeoutTimer. It returns the last seen
      * time for each client. The timeout timer checks the hashmap and removes clients,
      * if they time out. This is important, since there are no sessions in UDP and clients need
@@ -412,7 +407,6 @@ public class ServerController {
 
 
     /**
-	 *	<h1><i>remove</i></h1>
 	 * <p>This method removes a client from the server. It does thit by clearing
      * any reference to the client from all HashMaps on the backend. It also removes the game,
      * if there are no clients in a session and broadcasts an update to all other clients in a session.</p>

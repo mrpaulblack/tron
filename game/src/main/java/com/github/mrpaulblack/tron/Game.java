@@ -11,12 +11,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
-* <h1>Game</h1>
 * <p>This class contains all methods and data that is necessary for a running game. It controlls all movement, checks for winning
 conditinos, acts as a hub for communication of all game related information to the server and all collision-detection. It acts like a 
 library for the server to controll the main game-loop.</p>
-
-* @author: swt_lerngruppe_tron
 * @version 1.0
 * @since   2022-01-22
 */
@@ -37,7 +34,6 @@ public class Game implements GameController {
 
 
     /**
-	 * <h1><i>Game/i></h1>
 	 * <p>Initial registration of each player and document player and UUID in a HashMap</p>
 	 * @param settings - JSONArray with the settings payload following the tron API spec.
 	 */
@@ -63,9 +59,8 @@ public class Game implements GameController {
     }
     
     /**
-	 * <h1><i>register</i></h1>
 	 * <p>Initial registration of each player and document player and UUID in a HashMap</p>
-	 * @param UUID - Main identifier for each player.
+	 * @param playerID - Main identifier for each player.
      * @param clientName - String self chosen name of the player.
      * @param clientVersion - Float identifying the client Version used.
 	 */
@@ -79,7 +74,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>toJSON/i></h1>
 	 * <p>Creates a payload for a standard update for communication between game and server.</p>
 	 */
     @Override
@@ -96,9 +90,8 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>executeMove/i></h1>
 	 * <p>Changes direction if needed depending on moveChange and executing the move within the player movement arrays</p>
-	 * @param UUID - Main identifier for each player.
+	 * @param player - Main identifier for each player.
      * @param moveChange - Int indicating the change in direction relative to current direction.
 	 */
     @Override
@@ -111,9 +104,8 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1>Checks if the requested color is available and return ether UNDEFINED if taken or chosen color.<i>colorCheck</i></h1>
-	 * <p></p>
-	 * @param PlayerColor - Enum indicating the color asked for.
+	 * <p>Checks if the requested color is available and return ether UNDEFINED if taken or chosen color.</p>
+	 * @param color - Enum indicating the color asked for.
 	 */
     @Override
     public PlayerColor colorCheck(PlayerColor color){
@@ -125,7 +117,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>getStartPosition</i></h1>
 	 * <p>Sets the starting posiion on the grid based on amount of players to ensure fair starting positions as well as start direction.
      * In case playernumber till 4 each player starts in the middle of the each boarder line. For 4+ players the west and east spawns are adjusted.</p>
 	 */
@@ -251,12 +242,11 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>ready/i></h1>
 	 * <p>Does a client send a ready payload, this method registers the newly joined players in the HashMap mapping UUID and Player object.
-     * Should all players indicate a ready, all players are mapped in an array for easier navigation as well as defining start positions & directions.</p>
-     * @param UUID - Main identifier for each player.
+     * Should all players indicate a ready, all players are mapped in an array for easier navigation as well as defining start positions and directions.</p>
+     * @param playerID - Main identifier for each player.
      * @param color - Enum that indicates the players chosen color.
-     * @param name - String that contains the chosen playername.
+     * @param playerName - String that contains the chosen playername.
 	 */
     @Override
     public boolean ready(UUID playerID, PlayerColor color, String playerName){
@@ -284,9 +274,8 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>unready</i></h1>
 	 * <p>Should a player take his ready signal back, the previously chosen color and name are made available again.</p>
-     * @param UUID - Main identifier for each player.
+     * @param playerID - Main identifier for each player.
 	 */
     @Override
     public void unready(UUID playerID){
@@ -295,10 +284,9 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>disconnect</i></h1>
 	 * <p>In case of a disconnect while in lobby-phase the player will be removed from the HashMap. Is a game running and a 
      * disconnect occurs, the players gets set do dead.</p>
-     * @param UUID - Main identifier for each player.
+     * @param playerID - Main identifier for each player.
 	 */
     @Override
     public void disconnect(UUID playerID){
@@ -313,7 +301,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>endGame</i></h1>
 	 * <p>Checks the current game state for a win condition. In case of a draw, no winner gets returned.</p>
 	 */
     // TODO refactor to use attribute and call when move gets executed
@@ -341,7 +328,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>setSettings</i></h1>
 	 * <p>Used for communication between server and game.</p>
 	 */
     @Override
@@ -350,7 +336,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>collisionCheckerWall</i></h1>
 	 * <p>Checks for collision with a wall / border of the grid for each player.</p>
 	 */
     @Override
@@ -369,7 +354,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>collisionCheckerTail</i></h1>
 	 * <p>Checks for collision with another players tail of the grid for each player.</p>
 	 */
     @Override
@@ -386,7 +370,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>collisionCheckerFrontal/i></h1>
 	 * <p>Checks for collision with a frontal collision (head to head) for each player.</p>
 	 */
     @Override
@@ -404,7 +387,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>setDriverHeads</i></h1>
 	 * <p>Sets the value for a chosen players head in the respected integers.</p>
 	 */
     @Override
@@ -414,7 +396,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>collectTailPositions</i></h1>
 	 * <p>Collects all the positions of tails from all players and adds them in the respected list.</p>
 	 */
     @Override
@@ -428,7 +409,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>clearDriverHeads</i></h1>
 	 * <p>Clears all data stored in the head integers.</p>
 	 */
     @Override
@@ -438,7 +418,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>clearObstacleArrays</i></h1>
 	 * <p>Clears all data in the tail-position lists.</p>
 	 */
     @Override
@@ -448,7 +427,6 @@ public class Game implements GameController {
     }
 
     /**
-	 * <h1><i>collectHeadPositions</i></h1>
 	 * <p>Collects the position of each players head in respected list.</p>
 	 */
     @Override

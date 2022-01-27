@@ -1,10 +1,7 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>MsgError/h1>
-* <p>ENUM for error-types used in server & client </p>
-
-* @author: swt_lerngruppe_tron
+* <p>ENUM for error-types used in server and client </p>
 * @version 1.0
 * @since   2021-12-29
 */
@@ -18,7 +15,6 @@ public enum MsgError {
 	UNKNOWN;
 
     /**
-    * <h1><i>toString</i></h1>
     * <p>Method converting Enums to string and return it supporting TRON spezifications..<p>
     * @return String 
     */

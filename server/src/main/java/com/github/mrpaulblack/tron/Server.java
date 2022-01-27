@@ -10,10 +10,8 @@ import java.nio.charset.Charset;
 
 
 /**
- * <h1>Server</h1>
  * <p>Server class that creates a UDP socket and sends and recieves Datagram packages to and from clients.
  * inspired by: https://www.codejava.net/java-se/networking/java-udp-client-server-program-example</p>
- * @author: swt_lerngruppe_tron
  * @version 1.0
  * @since   2021-12-29
  */
@@ -26,12 +24,12 @@ public class Server {
 
 
 	/**
-	 *	<h1><i>Server</i></h1>
 	 * <p>This contructor creates the server with socket as well as the ServerController
 	 * to decode paylods and send data as part of the API spec.</p>
 	 * @param port - int of the port where the 
 	 * @param ip - InetAddress of the interface where the server is going to listen on
 	 * @param timeout - long is the timeout of clients in seconds
+	 * @throws SocketException - if the current socket fails
 	 */
 	public Server(int port, InetAddress ip, long timeout) throws SocketException {
 		socket = new DatagramSocket(port, ip);
@@ -41,7 +39,6 @@ public class Server {
 
 
 	/**
-	 *	<h1><i>main</i></h1>
 	 * <p>Entry point for exec of server. Creates server object and calls the recieve function
 	 * to start recieving packages in an endless loop.</p>
 	 * @param args - String[] array of the params with which the prgr got called
@@ -95,11 +92,11 @@ public class Server {
 
 
 	/**
-	 *	<h1><i>recieve</i></h1>
 	 * <p>Recieves a Datagram package in server socket. Parses
 	 * client as URI and hands of payload as a String as well
 	 * as the client URI to ServerController decoder get the data
 	 * parsed based on API spec.</p>
+	 * @throws Exception - generic Exception
 	 */
 	private void recieve() throws Exception {
 		LogController.log(Log.INFO, "Server started: " + socket.getLocalSocketAddress());
@@ -116,12 +113,12 @@ public class Server {
 
 
 	/**
-	 *	<h1><i>send</i></h1>
 	 * <p>This method can be called by the ServerController to send a payload to a client.
 	 * It parses the client URI back into port and InetAddress and sends the payload as
 	 * a Datagram package to the client.</p>
 	 * @param client - URI of the client which the packet gets send to; syntax: `udp://[client ip]:[client port]`
 	 * @param payload - String of the payload that gets send to the client
+	 * @throws Exception - generic Exception
 	 */
 	protected void send(URI client, String payload) throws Exception {
 		LogController.log(Log.TRACE,"{" + client + "} TX: " + payload);

@@ -1,10 +1,7 @@
 package com.github.mrpaulblack.tron;
 
 /**
-* <h1>PlayerColor</h1>
 * <p>ENUMs to define player colors.</p>
-
-* @author: swt_lerngruppe_tron
 * @version 1.0
 * @since   2021-12-29
 */
@@ -20,7 +17,6 @@ public enum PlayerColor {
 	private int index;
 
 	/**
-	 * <h1><i>PlayerColor</i></h1>
 	 * <p>This constrcuted i sgetting called, when a color gets created.
 	 * It sets the index of a specific color as attribute./p>
 	 */
@@ -29,7 +25,6 @@ public enum PlayerColor {
 	}
 
 	/**
-	 * <h1><i>getIndex</i></h1>
 	 * <p>This method returns the index of a color (self made tupel).</p>
 	 * @return int of the index of the color 
 	 */
@@ -38,7 +33,6 @@ public enum PlayerColor {
 	}
 
 	/**
-	 * <h1><i>toPlayerColor</i></h1>
 	 * <p>This method returns the PlayerColor matching a string.</p>
 	 * @param color String of the PlayerColor
 	 * @return PlayerColor 
@@ -57,7 +51,6 @@ public enum PlayerColor {
 	}
 
 	/**
-	 * <h1><i>toString</i></h1>
 	 * <p>Method converting Enums to string and return it supporting TRON spezifications.</p>
 	 * @return String 
 	 */
