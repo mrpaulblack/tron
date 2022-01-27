@@ -95,7 +95,7 @@ public class ClientController extends Thread {
         for (int i = 0; i < store.getSettings().length; i++) {
             JSONObject block = new JSONObject();
             block.put("key", store.getSettings()[i][4]);
-            block.put("value", Store.getGameSetup()[i]);
+            block.put("valueInt", Store.getGameSetup()[i]);
             toSend.put(block);
         }
         data.put("settings", toSend);
@@ -190,9 +190,10 @@ public class ClientController extends Thread {
 
                 //server update 
                 else if (json.getString("type").equals(MsgType.UPDATE.toString()) && serverstate == MsgType.SESSIONSETTINGS){
-                    if(data.has(""))
-                    serverstate = MsgType.UPDATE;
-                    sendMove();
+                    if(data.getString("state").equals("running")) {
+                        serverstate = MsgType.UPDATE;
+                        sendMove();
+                    }
                 }
             }
             else {

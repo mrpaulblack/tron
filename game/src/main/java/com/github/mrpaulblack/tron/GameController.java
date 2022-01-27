@@ -57,10 +57,10 @@ public interface GameController {
 
     public boolean setSettings(JSONObject settings);
     public JSONObject toJSON();
-    public void register(UUID playerID, String clientName, Float clientVersion);
+    public boolean register(UUID playerID, String clientName, Float clientVersion);
     public boolean ready(UUID playerID, PlayerColor color, String playerName);
     public void unready(UUID playerID);
-    public void getStartPosition();
+    public void getStartPosition(Integer hasStartPosi);
     public void disconnect(UUID playerID);
     public void executeMove(UUID playerID, int moveChange);
     public PlayerColor colorCheck(PlayerColor color);

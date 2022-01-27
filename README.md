@@ -24,7 +24,7 @@ This Repo uses Gradle.
 
 * Run the Junit Tests for your src : for client `gradle :client:test`; for server `gradle :server:test`; for game `gradle :game:build`
 
-* Execute your compiled program : for client `gradle :client:run`; for server `gradle :server:run`; game connot be executed since its a java lib
+* Execute your compiled program : for client `gradle :client:run`; for server `gradle :server:run --args="-l trace -t 604800"`; game connot be executed since its a java lib
 
 * Commit your changes with a PR
 

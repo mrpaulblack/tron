@@ -1,5 +1,6 @@
 package com.github.mrpaulblack.tron;
 
+import java.util.Arrays;
 import java.util.UUID;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -21,9 +22,9 @@ public class Player{
     private Float clientVersion;
     private UUID playerID;
     private Integer tailLenght;
-    protected Integer[] positionX = new Integer [tailLenght];
-    protected Integer[] positionY = new Integer [tailLenght];
-    private PlayerColor color;
+    protected Integer[] positionX;
+    protected Integer[] positionY;
+    private PlayerColor color = PlayerColor.UNDEFINED;
     private Boolean alive = false;
     private Boolean ready = false;
     private char direction;    
@@ -41,8 +42,11 @@ public class Player{
         this.clientVersion = clientVersion;
         this.tailLenght = tailLenght;
         this.playerID = playerID;
-        positionX = new Integer [tailLenght]; 
-        positionY = new Integer [tailLenght];
+        this.name = "";
+        positionX = new Integer[tailLenght]; 
+        positionY = new Integer[tailLenght];
+        Arrays.fill(positionX, -1);
+        Arrays.fill(positionY, -1);
     }
 
     /**
@@ -56,6 +60,7 @@ public class Player{
         playerload.put("color", color.toString());
         playerload.put("uuid", playerID.toString());
         playerload.put("client", clientName);
+        playerload.put("name", name);
         playerload.put("ready", ready.toString());
         playerload.put("isSpectator", alive.toString());
 
