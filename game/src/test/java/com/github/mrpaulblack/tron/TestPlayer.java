@@ -15,7 +15,6 @@ import java.util.UUID;
 */
 public class TestPlayer {
 
-    /*
     //Test setStartDirection
     @Test
     public void testSetStartDirection1() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException{
@@ -453,13 +452,34 @@ public class TestPlayer {
     //Test move
     @Test
     public void testMove1(){
-        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
-        assertEquals(null, testPlayer.positionX[0]);
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),7);
+        testPlayer.setAlive(true);
+        //set direction to 'W'
+        testPlayer.positionX[0] = 100;
+        testPlayer.positionY[0] = 0;
+        testPlayer.setStartDirection(100);
+        //direction to 'S'
+        testPlayer.changeDirection(1);
+
+        testPlayer.move();
+
+        assertEquals(100, testPlayer.positionX[1], 0);
     }
     @Test
     public void testMove2(){
-        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),100);
-        assertEquals(null, testPlayer.positionY[0]);
+        Player testPlayer = new Player("tclientname",1.0f,UUID.fromString("a5764857-ae35-34dc-8f25-a9c9e73aa898"),7);
+        testPlayer.setAlive(true);
+        //set direction to 'W'
+        testPlayer.positionX[0] = 100;
+        testPlayer.positionY[0] = 0;
+        testPlayer.setStartDirection(100);
+        //direction to 'S'
+        testPlayer.changeDirection(1);
+
+        testPlayer.move();
+        testPlayer.move();
+
+        assertEquals(1, testPlayer.positionY[1], 0);
     }
     @Test
     public void testMove3(){
@@ -558,6 +578,5 @@ public class TestPlayer {
 
         assertNull(testPlayer.positionY[0]);
     }
-    */
 
 }
