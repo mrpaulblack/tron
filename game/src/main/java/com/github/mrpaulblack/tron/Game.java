@@ -25,7 +25,7 @@ public class Game implements GameController {
     private Integer tailLenght;
     private Integer playerNumber;
     private Integer cellSize;
-    private Integer hasStartPosi;
+    private UUID winner;
     private Player[] user;
     private GameState gameState;
     private Integer driverHeadX;
@@ -39,16 +39,26 @@ public class Game implements GameController {
     /**
 	 * <h1><i>Game/i></h1>
 	 * <p>Initial registration of each player and document player and UUID in a HashMap</p>
-	 * @param boardSize - Integer for how big the board will be. Board will always be a square.
-     * @param tailLenght - Integer that determines the length of the players tail.
-     * @param playerNumber - Integers that determines how many players need to be created / will be participating.
-     * @param cellSize - Integer that says what pixelsize each cell on the grill will have.
+	 * @param settings - JSONArray with the settings payload following the tron API spec.
 	 */
-    public Game (Integer boardSize, Integer tailLenght, Integer playerNumber, Integer cellSize){
-        this.boardSize = boardSize;
-        this.tailLenght = tailLenght;
-        this.playerNumber = playerNumber;
-        this.cellSize = cellSize;
+    public Game(JSONArray settings) throws Exception {
+        for (int i = 0; i < settings.length(); i++) {
+            JSONObject setting = settings.getJSONObject(i);
+            if (setting.has("key") && setting.has("valueInt") && setting.getString("key").equals("board_size")) {
+                boardSize = setting.getInt("valueInt");
+            }
+            else if (setting.has("key") && setting.has("valueInt") && setting.getString("key").equals("cell_size")) {
+                cellSize = setting.getInt("valueInt");
+            }
+            else if (setting.has("key") && setting.has("valueInt") && setting.getString("key").equals("player_num")) {
+                playerNumber = setting.getInt("valueInt");
+            }
+            else if (setting.has("key") && setting.has("valueInt") && setting.getString("key").equals("bicicle_tail_size")) {
+                tailLenght = setting.getInt("valueInt");
+            }
+            else { throw new IllegalArgumentException("The setting does not exist: " + setting.getString("key")); }
+        }
+        this.winner = null;
         this.gameState = GameState.SETTINGUP;
     }
     
@@ -60,8 +70,12 @@ public class Game implements GameController {
      * @param clientVersion - Float identifying the client Version used.
 	 */
     @Override
-    public void register(UUID playerID, String clientName, Float clientVersion){
-        participants.put(playerID, new Player(clientName, clientVersion, playerID, tailLenght));        
+    public boolean register(UUID playerID, String clientName, Float clientVersion){
+        if (participants.size() < playerNumber || gameState != GameState.SETTINGUP) {
+            participants.put(playerID, new Player(clientName, clientVersion, playerID, tailLenght)); 
+            return true;
+        }
+        else { return false; }     
     }
 
     /**
@@ -73,7 +87,7 @@ public class Game implements GameController {
         JSONObject payload = new JSONObject();
         JSONArray substance = new JSONArray();
         payload.put("state", gameState.toString());
-        payload.put("winner", endGame());
+        payload.put("winner", winner);
         for (Entry <UUID, Player>clientEntry: participants.entrySet()){
             substance.put(clientEntry.getValue().playerToJSON()); 
         }
@@ -116,7 +130,7 @@ public class Game implements GameController {
      * In case playernumber till 4 each player starts in the middle of the each boarder line. For 4+ players the west and east spawns are adjusted.</p>
 	 */
     @Override
-    public void getStartPosition(){
+    public void getStartPosition(Integer hasStartPosi){
         if ((playerNumber < 5) && (playerNumber > 0)){
             switch (hasStartPosi){
                 case 0:
@@ -246,23 +260,24 @@ public class Game implements GameController {
 	 */
     @Override
     public boolean ready(UUID playerID, PlayerColor color, String playerName){
-        int readyCount = 0;        
+        int readyCount = 0;
         participants.get(playerID).setReadyPlayer(playerName, color);
         colorToID.put(playerID, color);
-        
+
         for (Entry <UUID, Player>clientEntry: participants.entrySet()){
             if(clientEntry.getValue().getReady()){
                 readyCount++;
             }
         }
 
-        if(readyCount == playerNumber){
+        if(readyCount >= playerNumber){
             Collection<Player> values = participants.values();
             user = values.toArray(new Player[0]);
             gameState = GameState.RUNNING;
             for(int i = 0; i < playerNumber; i++){
-                getStartPosition();
+                getStartPosition(i);
             }
+            gameState = GameState.RUNNING;
             return true;
         }
         else{return false;}
@@ -301,6 +316,7 @@ public class Game implements GameController {
 	 * <h1><i>endGame</i></h1>
 	 * <p>Checks the current game state for a win condition. In case of a draw, no winner gets returned.</p>
 	 */
+    // TODO refactor to use attribute and call when move gets executed
     @Override
     public UUID endGame(){
         UUID winner = null;
@@ -323,7 +339,7 @@ public class Game implements GameController {
             return null;
         }     
     }
-    
+
     /**
 	 * <h1><i>setSettings</i></h1>
 	 * <p>Used for communication between server and game.</p>
